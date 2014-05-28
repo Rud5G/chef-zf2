@@ -1,0 +1,18 @@
+{
+    "id": "shares",
+    "shares": {
+        "zf2tutorial": {
+            "comment": "zf2tutorial Development Share",
+            "path": "/srv/www/zf2tutorial",
+            "only user": "no",
+            "guest ok": "no",
+            "writeable": "yes",
+            "browseable": "yes",
+            "revalidate": "yes",
+            "valid users": ["zf2user"],
+            "create mask": "0664",
+            "directory mask": "0775" ,
+            "force user": "zf2user"
+        }
+    }
+}

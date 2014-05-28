@@ -1,0 +1,15 @@
+{
+    "id": "zf2user",
+    "password": false,
+    "smbpasswd": false,
+    "ssh_keys": [
+        ""
+    ],
+    "ssh_private_key": "",
+    "ssh_public_key": "",
+    "groups": [ "www-data", "users" ],
+    "uid": 3002,
+    "gid": 3002,
+    "shell": "\/bin\/bash",
+    "comment": "ZF2 Shell User"
+}

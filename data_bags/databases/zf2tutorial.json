@@ -1,0 +1,11 @@
+{
+    "id": "zf2tutorial",
+    "development": {
+        "type": "mysql",
+        "host": "localhost",
+        "port": 3306,
+        "username": "dbuser",
+        "password": "dbpass",
+        "name": "zf2tutorial"
+    }
+}

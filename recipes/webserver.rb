@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: zf2
-# Recipe:: default
+# Recipe:: webserver
 #
 # Copyright (C) 2014 Triple-networks
 # 
@@ -16,3 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+include_recipe 'zf2::apache2'
+include_recipe 'logrotate::default'

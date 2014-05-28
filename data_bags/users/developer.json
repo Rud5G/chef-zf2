@@ -1,0 +1,15 @@
+{
+    "id": "developer",
+    "password": "smbpass",
+    "smbpasswd": "smbpass",
+    "ssh_keys": [
+        ""
+    ],
+    "ssh_private_key": "",
+    "ssh_public_key": "",
+    "groups": [ "www-data", "users" ],
+    "uid": 2001,
+    "gid": 2001,
+    "shell": "\/bin\/bash",
+    "comment": "Developer / Samba User"
+}

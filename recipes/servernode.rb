@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: zf2
-# Recipe:: default
+# Recipe:: servernode
 #
 # Copyright (C) 2014 Triple-networks
 # 
@@ -16,3 +16,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+include_recipe 'zf2::baseserver'
+
+include_recipe 'zf2::database'
+
+include_recipe 'zf2::php'
+
+include_recipe 'zf2::projects'
+
+include_recipe 'zf2::webserver'

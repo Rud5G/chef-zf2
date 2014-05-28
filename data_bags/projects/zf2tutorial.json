@@ -1,0 +1,14 @@
+{
+    "id": "zf2tutorial",
+    "projectdir": "/srv/www/zf2tutorial",
+    "owner": "zf2user",
+    "group": "users",
+    "repository": "https://github.com/zendframework/ZendSkeletonApplication.git",
+    "revision": "master",
+    "checkout_branch": "deploy",
+    "comment": "zf2tutorial",
+    "usecomposer": true,
+    "dbmigration": true,
+    "dbdatabagid": "zf2tutorial",
+    "writabledirs": ["data/"]
+}
