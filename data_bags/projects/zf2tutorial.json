@@ -7,8 +7,8 @@
     "revision": "master",
     "checkout_branch": "deploy",
     "comment": "zf2tutorial",
-    "usecomposer": true,
-    "dbmigration": true,
-    "dbdatabagid": "zf2tutorial",
+    "use_composer": true,
+    "db_migration": false,
+    "db_databag_id": "zf2tutorial",
     "writabledirs": ["data/"]
 }

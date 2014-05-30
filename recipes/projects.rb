@@ -61,7 +61,7 @@ begin
           curl -sS https://getcomposer.org/installer | php
         EOH
         creates File.join(projectdata['projectdir'], 'composer.phar')
-      end if projectdata['usecomposer']
+      end if projectdata['use_composer']
 
       # composer install (uses: .lock file)
       bash 'install_composer' do
@@ -70,11 +70,11 @@ begin
         code <<-EOH
           php composer.phar install
         EOH
-      end if projectdata['usecomposer']
+      end if projectdata['use_composer']
 
-
-      if projectdata['dbdatabagid']
-        databasedata = data_bag_item('databases', projectdata['dbdatabagid'])[node.chef_environment]
+      # database databag id
+      if projectdata['db_databag_id']
+        databasedata = data_bag_item('databases', projectdata['db_databag_id'])[node.chef_environment]
 
         template File.join(projectdata['projectdir'], 'config/autoload/local.php') do
           source 'zf2-db-local.php.erb'
@@ -107,7 +107,7 @@ begin
         code <<-EOH
           php public/index.php migration apply
         EOH
-      end if projectdata['dbmigration']
+      end if projectdata['db_migration']
 
     rescue Exception => e
       Chef::Log.warn("Could create project, exception; #{e}")
