@@ -30,6 +30,8 @@ begin
     # set default template
     hosttemplate = hostdata['template']
     hosttemplate ||= 'web_app.conf.erb'
+
+    #webappname = '000-'+hostdata['id']
     
     web_app hostdata['id'] do
       enable hostdata['enable']

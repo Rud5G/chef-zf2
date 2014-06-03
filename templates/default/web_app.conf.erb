@@ -6,7 +6,7 @@
   ServerAlias <% @params[:server_aliases].each do |a| %><%= a %> <% end %>
 <% end -%>
   RewriteEngine On
-  
+
   SetEnv APP_ENV "<%= node.chef_environment %>"
 
   DocumentRoot <%= @params[:docroot] %>
