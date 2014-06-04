@@ -9,10 +9,10 @@
             "writeable": "yes",
             "browseable": "yes",
             "revalidate": "yes",
-            "valid users": ["zf2user"],
+            "valid users": ["developer"],
             "create mask": "0664",
             "directory mask": "0775" ,
-            "force user": "zf2user"
+            "force user": "projectuser"
         }
     }
 }

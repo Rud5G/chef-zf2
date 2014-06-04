@@ -18,7 +18,13 @@
 #
 
 # apache2
-default['apache']['default_site_enabled'] = true
+default['apache']['default_site_enabled'] = true #false
+
+default['apache']['default_modules'] = %w[
+  status alias auth_basic autoindex
+  dir env mime negotiation setenvif
+  mod_deflate mod_expires mod_headers mod_php5 mod_rewrite
+]
 
 #  default['apache']['listen_addresses']              #- Addresses that httpd should listen on. Default is any ("*").
 #  default['apache']['listen_ports']                  #- Ports that httpd should listen on. Default is port 80.

@@ -1,5 +1,5 @@
 {
-    "id": "zf2user",
+    "id": "projectuser",
     "password": false,
     "smbpasswd": false,
     "ssh_keys": [
@@ -11,5 +11,5 @@
     "uid": 3002,
     "gid": 3002,
     "shell": "\/bin\/bash",
-    "comment": "ZF2 Shell User"
+    "comment": "Project User"
 }

@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 VAGRANTFILE_API_VERSION = '2'
-VAGRANT_MIN_VERSION = '1.3.4'
+VAGRANT_MIN_VERSION = '1.5.2'
 
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -59,6 +59,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = 'opscode-ubuntu-12.04'
   config.vm.box_url = 'https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box'
+
+  #config.vm.box = 'opscode-ubuntu-14.04'
+  #config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box'
+
 
 
   config.vm.network :private_network, :ip => '33.33.33.77'
