@@ -2,7 +2,10 @@
 
 # Requirements
 
+Install chef-dk from the downloads page on the [Chef-DK github page](https://github.com/opscode/chef-dk)
+
 Install Vagrant '>= 1.5.2' from the [Vagrant downloads page](http://www.vagrantup.com/download-archive/v1.5.2.html)
+
 Install the Vagrant plugins: Berkshelf, Omnibus, Hostmanager
 
     $ vagrant plugin install vagrant-berkshelf --plugin-version '>= 2.0.1'
