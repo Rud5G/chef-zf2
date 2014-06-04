@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: zf2
+# Cookbook Name:: pimcore
 # Recipe:: projects
 #
 # Copyright (C) 2014 Triple-networks
@@ -53,6 +53,32 @@ begin
         ssh_wrapper '/var/tmp/chef_ssh_wrapper.sh'
       end
 
+      # create directories if they do not exist
+      projectdata['createdirs'].each do |createdir|
+        path = File.join(projectdata['projectdir'], createdir)
+        # Chef::Log.info("writabledir: #{path}")
+        directory path do
+          group projectdata['group']
+          # mode 02777
+          owner projectdata['owner']
+          recursive false
+          action :create
+        end unless File.directory?(path)
+      end if projectdata['createdirs']
+
+      # add writeable directories
+      projectdata['writabledirs'].each do |writabledir|
+        path = File.join(projectdata['projectdir'], writabledir)
+        # Chef::Log.info("writabledir: #{path}")
+        directory path do
+          group 'www-data'
+          mode 02777
+          owner projectdata['owner']
+          recursive false
+          action :create
+        end
+      end if projectdata['writabledirs']
+
       # install composer.phar
       bash 'composer_installer' do
         user projectdata['owner']
@@ -86,19 +112,6 @@ begin
           )
         end
       end
-
-      # only set permissions (= only if directory already exists)
-      projectdata['writabledirs'].each do |writabledir|
-        path = File.join(projectdata['projectdir'], writabledir)
-        # Chef::Log.info("writabledir: #{path}")
-        directory path do
-          group 'www-data'
-          mode 02777
-          owner projectdata['owner']
-          recursive false
-          action :create
-        end if File.directory?(path)
-      end if projectdata['writabledirs']
 
       # execute database migrations
       bash 'db_migrations' do

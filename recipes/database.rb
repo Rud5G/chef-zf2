@@ -35,7 +35,7 @@ begin
           include_recipe 'database::mysql'
           database_connection.merge!({ :username => 'root', :password => node['mysql']['server_root_password'] })
 
-          mysql_database databasedata['name'] do
+          mysql_database databasedata['dbname'] do
             connection database_connection
             collation 'utf8_bin'
             encoding 'utf8'
@@ -54,7 +54,7 @@ begin
             connection database_connection
             host '%'
             password databasedata['password']
-            database_name databasedata['name']
+            database_name databasedata['dbname']
             action [:create, :grant]
           end
         else

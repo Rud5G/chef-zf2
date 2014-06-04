@@ -10,5 +10,8 @@
     "use_composer": true,
     "db_migration": false,
     "db_databag_id": "zf2tutorial",
-    "writabledirs": ["data/"]
+    "writabledirs": ["data/"],
+    "createdirs": ["website","website/var","plugins"],
+    "database_template": "zf2-db-local.php.erb",
+    "database_settings_file": "config/autoload/local.php"
 }
