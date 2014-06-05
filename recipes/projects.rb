@@ -42,6 +42,13 @@ begin
         recursive true
       end
 
+      # # set ssh_wrapper from template
+      # template '/var/tmp/chef_ssh_wrapper.sh' do
+      #   source 'chef_ssh_wrapper.sh.erb'
+      #   owner 'root'
+      #   mode 0755
+      # end
+
       # clone repository
       git projectdata['projectdir'] do
         repository projectdata['repository']
@@ -102,8 +109,8 @@ begin
       if projectdata['db_databag_id']
         databasedata = data_bag_item('databases', projectdata['db_databag_id'])[node.chef_environment]
 
-        template File.join(projectdata['projectdir'], 'config/autoload/local.php') do
-          source 'zf2-db-local.php.erb'
+        template File.join(projectdata['projectdir'], projectdata['database_settings_file']) do
+          source projectdata['database_template']
           owner projectdata['owner']
           group projectdata['group']
           mode 0644
