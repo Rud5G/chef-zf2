@@ -1,1 +1,2 @@
-/usr/bin/env ssh -o "StrictHostKeyChecking=no" -i "~/.ssh/id_rsa" $1 $2
+#!/bin/sh
+exec /usr/bin/env ssh -o "StrictHostKeyChecking=no" -i "~/.ssh/id_rsa" "$@"
