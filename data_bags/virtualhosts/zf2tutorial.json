@@ -4,7 +4,7 @@
     "create_docroot": false,
     "server_name": "zf2tutorial.zf2.dev",
     "server_aliases": [
-        "zf2tutorial"
+        "zf2tutorial.dev"
     ],
     "docroot": "/srv/www/zf2tutorial/public",
     "directory_index": [ "index.php", "index.html" ],
