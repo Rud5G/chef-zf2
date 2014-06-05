@@ -42,6 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     exit
   end
 
+
   # Detects vagrant hostmanager plugin
   if Vagrant.has_plugin?('vagrant-hostmanager')
     puts 'INFO:  Vagrant-hostmanager plugin detected.'
@@ -49,10 +50,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.manage_host = true
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
-    config.hostmanager.aliases = %w(zf2.dev zf2tutorial.zf2.dev)
+    config.hostmanager.aliases = %w(zf2.dev zf2tutorial.zf2.dev ods-magento.dev) 
   else
     puts "WARN:  Vagrant-hostmanager plugin not detected. Please install the plugin with\n       'vagrant plugin install vagrant-hostmanager' from any other directory\n       before continuing."
   end
+
+  # Add additional virtualhost aliases
+  Dir[Pathname(__FILE__).dirname.join('data_bags','virtualhosts','*.json')].each do |databagfile|
+    config.hostmanager.aliases << JSON.parse(Pathname(__FILE__).dirname.join('data_bags','virtualhosts',databagfile).read)['server_name']
+    JSON.parse(Pathname(__FILE__).dirname.join('data_bags','virtualhosts',databagfile).read)['server_aliases'].each do |serveralias|
+      config.hostmanager.aliases << serveralias
+    end
+  end
+
+  # rmemove duplicate
+  config.hostmanager.aliases = config.hostmanager.aliases.uniq
+
+  # puts config.hostmanager.aliases.inspect
 
 # vm config
   config.vm.hostname = 'zf2.dev'
