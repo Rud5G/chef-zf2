@@ -19,6 +19,18 @@
 
 if node.chef_environment == 'development'
 
+  package 'git-flow'
+  package 'phpmyadmin'
+
+  # locale-gen nl_NL.UTF-8 && dpkg-reconfigure locales
+
+  # git config
+  # git config --global color.ui true
+  # git config --global core.editor vim
+  # git config --global user.name "Your Name"
+  # git config --global user.email you@example.com
+
+  # check
   include_recipe 'baseserver::users'
 
   chef_gem 'chef-rewind'
