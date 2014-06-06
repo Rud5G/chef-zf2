@@ -20,7 +20,7 @@ Set the required project (git), database, virtualhost & users in the databags
     $ vagrant halt
 
 
-## Issues 
+## Known Issues 
 
 The samba user setup is not done correct in the first run, to fix: 
 
