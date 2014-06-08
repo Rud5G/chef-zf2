@@ -66,7 +66,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # rmemove duplicate
   config.hostmanager.aliases = config.hostmanager.aliases.uniq
 
-  # puts config.hostmanager.aliases.inspect
 
 # vm config
   config.vm.hostname = 'zf2.dev'
@@ -76,8 +75,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   #config.vm.box = 'opscode-ubuntu-14.04'
   #config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box'
-
-
 
   config.vm.network :private_network, :ip => '33.33.33.77'
 
