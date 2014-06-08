@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: pimcore
+# Cookbook Name:: zf2
 # Recipe:: projects
 #
 # Copyright (C) 2014 Triple-networks
