@@ -24,6 +24,9 @@ template '/var/tmp/chef_ssh_wrapper.sh' do
   mode 0755
 end
 
+Chef::Log.info("I am a message from the #{recipe_name} recipe in the #{cookbook_name} cookbook.")
+
+
 begin
   data_bag('projects').each do |project|
     projectdata = data_bag_item('projects', project)
@@ -111,6 +114,7 @@ begin
 
         template File.join(projectdata['projectdir'], projectdata['database_settings_file']) do
           source projectdata['database_template']
+          # cookbook cookbook_name
           owner projectdata['owner']
           group projectdata['group']
           mode 0644
