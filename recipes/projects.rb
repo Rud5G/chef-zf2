@@ -24,7 +24,12 @@ template '/var/tmp/chef_ssh_wrapper.sh' do
   mode 0755
 end
 #
-# Chef::Log.info("I am a message from the #{recipe_name} recipe in the #{cookbook_name} cookbook.")
+Chef::Log.info("RECIPE_NAME: #{recipe_name}, COOKBOOK_NAME: #{cookbook_name}")
+
+
+Chef::Log.info(run_context.cookbook_collection[cookbook_name].metadata.version)
+
+Chef::Log.info(:cookbook_name)
 
 
 begin
