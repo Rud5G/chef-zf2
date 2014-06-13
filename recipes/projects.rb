@@ -29,7 +29,7 @@ end
 # Chef::Log.info(Chef::Config.inspect)
 # Chef::Log.info(node.inspect)
 
-Chef::Log.info(loaded_recipes.inspect)
+Chef::Log.info(run_context.loaded_recipes.inspect)
 
 # Get the Chef::CookbookVersion for the current cookbook
 cb = run_context.cookbook_collection[cookbook_name]
