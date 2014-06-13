@@ -4,7 +4,7 @@ maintainer_email 'r.gravestein@triple-networks.com'
 license          'Apache 2.0'
 description      'Installs/Configures ZF2'
 long_description 'Installs/Configures ZF2'
-version          '0.4.0'
+version          '0.4.1'
 
 depends 'baseserver', '~> 0.7.3'
 
