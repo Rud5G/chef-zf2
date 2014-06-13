@@ -23,38 +23,6 @@ template '/var/tmp/chef_ssh_wrapper.sh' do
   owner 'root'
   mode 0755
 end
-#
-#
-# Chef::Log.info(node['parent'])
-# Chef::Log.info(Chef::Config.inspect)
-# Chef::Log.info(node.inspect)
-
-Chef::Log.info(run_context.loaded_recipes.inspect)
-
-# Get the Chef::CookbookVersion for the current cookbook
-cb = run_context.cookbook_collection[cookbook_name]
-
-Chef::Log.info(cb.inspect)
-
-
-# Loop over the array of files.
-# 'templates' will also work.
-cb.manifest['templates'].each do |cookbookfile|
-  Chef::Log.info("found: " + cookbookfile['name'])
-end
-
-
-Chef::Log.info("RECIPE_NAME: #{recipe_name}, COOKBOOK_NAME: #{cookbook_name}")
-
-
-
-
-Chef::Log.info(run_context.cookbook_collection[cookbook_name].inspect)
-
-
-
-Chef::Log.info(:cookbook_name)
-
 
 begin
   data_bag('projects').each do |project|
@@ -73,13 +41,6 @@ begin
         action :create
         recursive true
       end
-
-      # # set ssh_wrapper from template
-      # template '/var/tmp/chef_ssh_wrapper.sh' do
-      #   source 'chef_ssh_wrapper.sh.erb'
-      #   owner 'root'
-      #   mode 0755
-      # end
 
       # clone repository
       git projectdata['projectdir'] do
