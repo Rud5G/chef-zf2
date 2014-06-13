@@ -20,7 +20,7 @@
 # ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
 
-default['parent'] = cookbook_name
+default['parent'] = default[:cookbook_name]
 
 
 # apache2
