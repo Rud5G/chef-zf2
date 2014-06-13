@@ -38,7 +38,7 @@ Chef::Log.info(cb.inspect)
 # Loop over the array of files.
 # 'templates' will also work.
 cb.manifest['templates'].each do |cookbookfile|
-  Chef::Log("found: " + cookbookfile['name'])
+  Chef::Log.info("found: " + cookbookfile['name'])
 end
 
 
