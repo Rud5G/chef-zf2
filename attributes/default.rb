@@ -17,6 +17,12 @@
 # limitations under the License.
 #
 
+# ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
+
+
+default['parent'] = cookbook_name
+
+
 # apache2
 default['apache']['default_site_enabled'] = true #false
 

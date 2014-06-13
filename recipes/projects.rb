@@ -24,10 +24,30 @@ template '/var/tmp/chef_ssh_wrapper.sh' do
   mode 0755
 end
 #
+
+Chef::Log.info(node['parent'])
+
+Chef::Log.info("Chef::Config.inspect: #{Chef::Config.inspect}")
+Chef::Log.info("node inspect: #{node.inspect}")
+
+# Get the Chef::CookbookVersion for the current cookbook
+cb = run_context.cookbook_collection[cookbook_name]
+
+# Loop over the array of files.
+# 'templates' will also work.
+cb.manifest['files'].each do |cookbookfile|
+  Chef::Log("found: " + cookbookfile['name'])
+end
+
+
 Chef::Log.info("RECIPE_NAME: #{recipe_name}, COOKBOOK_NAME: #{cookbook_name}")
 
 
+
+
 Chef::Log.info(run_context.cookbook_collection[cookbook_name].metadata.version)
+
+
 
 Chef::Log.info(:cookbook_name)
 
@@ -117,7 +137,7 @@ begin
       if projectdata['db_databag_id']
         databasedata = data_bag_item('databases', projectdata['db_databag_id'])[node.chef_environment]
 
-        cookbookname = projectdata['cookbook_name'] || cookbook_name
+        cookbookname = projectdata['cookbook_name'] || cookbook_name.to_s
 
         template File.join(projectdata['projectdir'], projectdata['database_settings_file']) do
           source projectdata['database_template']
