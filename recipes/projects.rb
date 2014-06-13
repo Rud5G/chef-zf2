@@ -26,16 +26,18 @@ end
 #
 
 Chef::Log.info(node['parent'])
-
-Chef::Log.info("Chef::Config.inspect: #{Chef::Config.inspect}")
-Chef::Log.info("node inspect: #{node.inspect}")
+Chef::Log.info(Chef::Config.inspect)
+Chef::Log.info(node.inspect)
 
 # Get the Chef::CookbookVersion for the current cookbook
 cb = run_context.cookbook_collection[cookbook_name]
 
+Chef::Log.info(cb.inspect)
+
+
 # Loop over the array of files.
 # 'templates' will also work.
-cb.manifest['files'].each do |cookbookfile|
+cb.manifest['templates'].each do |cookbookfile|
   Chef::Log("found: " + cookbookfile['name'])
 end
 
@@ -45,7 +47,7 @@ Chef::Log.info("RECIPE_NAME: #{recipe_name}, COOKBOOK_NAME: #{cookbook_name}")
 
 
 
-Chef::Log.info(run_context.cookbook_collection[cookbook_name].metadata.version)
+Chef::Log.info(run_context.cookbook_collection[cookbook_name].inspect)
 
 
 
