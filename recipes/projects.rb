@@ -23,8 +23,8 @@ template '/var/tmp/chef_ssh_wrapper.sh' do
   owner 'root'
   mode 0755
 end
-
-Chef::Log.info("I am a message from the #{recipe_name} recipe in the #{cookbook_name} cookbook.")
+#
+# Chef::Log.info("I am a message from the #{recipe_name} recipe in the #{cookbook_name} cookbook.")
 
 
 begin
@@ -112,9 +112,11 @@ begin
       if projectdata['db_databag_id']
         databasedata = data_bag_item('databases', projectdata['db_databag_id'])[node.chef_environment]
 
+        cookbookname = projectdata['cookbook_name'] || cookbook_name
+
         template File.join(projectdata['projectdir'], projectdata['database_settings_file']) do
           source projectdata['database_template']
-          # cookbook cookbook_name
+          cookbook cookbookname
           owner projectdata['owner']
           group projectdata['group']
           mode 0644
