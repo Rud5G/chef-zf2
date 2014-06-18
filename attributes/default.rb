@@ -19,6 +19,7 @@
 
 # ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
+default['application']['admin']['email']    = 'admin@example.com'
 
 
 # apache2
