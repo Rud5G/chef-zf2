@@ -117,11 +117,17 @@ begin
       end
 
       # execute database migrations
+      if projectdata['db_migration'] === true
+        migrationcmd = 'php public/index.php migration apply'
+      else
+        migrationcmd = projectdata['db_migration']
+      end
+
       bash 'db_migrations' do
         user projectdata['owner']
         cwd projectdata['projectdir']
         code <<-EOH
-          php public/index.php migration apply
+          #{migrationcmd}
         EOH
       end if projectdata['db_migration']
 
