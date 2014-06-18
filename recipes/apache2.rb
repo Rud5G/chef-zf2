@@ -38,6 +38,7 @@ begin
       server_name hostdata['server_name']
       server_aliases hostdata['server_aliases']
       template hosttemplate
+      # cookbook hostdata['cookbook'] if hostdata['cookbook']
       docroot hostdata['docroot']
       allow_override hostdata['allow_override']
       directory_options hostdata['directory_options']
