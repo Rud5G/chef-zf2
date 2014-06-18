@@ -18,7 +18,7 @@
 #
 
 # mailcatcher
-default['mailcatcher']['bin']                             = '/usr/bin/env PATH=/opt/chef/embedded/bin:"$PATH"
+default['mailcatcher']['bin']                             = '/usr/bin/env PATH=/opt/chef/embedded/bin:"$PATH" catchmail'
 default['mailcatcher']['http-ip']                         = '0.0.0.0'
 default['mailcatcher']['http-port']                       = 1080
 default['mailcatcher']['smtp-ip']                         = '127.0.0.1'
