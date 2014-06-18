@@ -19,6 +19,15 @@
 
 if node.chef_environment == 'development'
 
+  package 'git-flow'
+  package 'phpmyadmin'
+
+  # git config
+  # git config --global color.ui true
+  # git config --global core.editor vim
+  # git config --global user.name "Your Name"
+  # git config --global user.email you@example.com
+
   # users
   include_recipe 'baseserver::users'
 
