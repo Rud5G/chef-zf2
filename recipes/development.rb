@@ -52,7 +52,8 @@ if node.chef_environment == 'development'
     code <<-EOH
       npm install -g grunt-cli
     EOH
-
   end
+
+  include_recipe 'zf2::mailcatcher'
 
 end
