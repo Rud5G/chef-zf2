@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Rud5G/chef-zf2.png?label=ready&title=Ready)](https://waffle.io/Rud5G/chef-zf2)
 # ZF2 cookbook
 
 # Requirements
