@@ -8,11 +8,11 @@
 #
 
 include_recipe 'apache2'
-include_recipe 'apache2::mod_deflate'
-include_recipe 'apache2::mod_expires'
-include_recipe 'apache2::mod_headers'
-include_recipe 'apache2::mod_php5'
-include_recipe 'apache2::mod_rewrite'
+# include_recipe 'apache2::mod_deflate'
+# include_recipe 'apache2::mod_expires'
+# include_recipe 'apache2::mod_headers'
+# include_recipe 'apache2::mod_php5'
+# include_recipe 'apache2::mod_rewrite'
 
 begin
   data_bag('virtualhosts').each do |virtualhost|
@@ -30,6 +30,8 @@ begin
     # set default template
     hosttemplate = hostdata['template']
     hosttemplate ||= 'web_app.conf.erb'
+    hostcookbook = hostdata['cookbook']
+    hostcookbook ||= cookbook_name.to_s
 
     #webappname = '000-'+hostdata['id']
     
@@ -38,7 +40,7 @@ begin
       server_name hostdata['server_name']
       server_aliases hostdata['server_aliases']
       template hosttemplate
-      # cookbook hostdata['cookbook'] if hostdata['cookbook']
+      cookbook hostcookbook
       docroot hostdata['docroot']
       allow_override hostdata['allow_override']
       directory_options hostdata['directory_options']
