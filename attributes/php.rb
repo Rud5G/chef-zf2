@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: zf2
-# Attribute:: default
+# Attribute:: php
 #
 # Copyright (C) 2014 Triple-networks
 #
@@ -17,6 +17,10 @@
 # limitations under the License.
 #
 
-# ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
-
-default['application']['admin']['email']    = 'admin@zf2.example.com'
+default['php']['set_version'] = '5.4'
+default['php']['packages'] = %w(
+  curl libxml2-utils
+  php-pear php-apc
+  phpmyadmin
+  php5 php5-cli php5-common php5-curl php5-dev php5-gd php5-intl php5-mcrypt php5-mysql php5-xmlrpc php5-xsl
+)

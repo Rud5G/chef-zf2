@@ -30,6 +30,7 @@ begin
 
     begin
       Chef::Log.debug(projectdata.inspect)
+      Chef::Log.debug("Cookbook #{cookbook_name} in the recipe: #{recipe_name}.")
 
       parentprojectdir = Pathname.new(projectdata['projectdir']).parent
 
