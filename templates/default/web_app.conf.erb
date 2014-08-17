@@ -41,8 +41,8 @@
   RewriteEngine On
   RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
   RewriteLogLevel 0
-
 <% if @params[:canonical_host] -%>
+
   # Canonical host, <%= @params[:server_name] %>
   RewriteCond %{HTTP_HOST}   !^<%= @params[:server_name] %> [NC]
   RewriteCond %{HTTP_HOST}   !^$
