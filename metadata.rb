@@ -12,6 +12,6 @@ depends 'mysql', '~> 5.2.12'
 depends 'apache2', '~> 1.11.0'
 depends 'php', '~> 1.4.6'
 depends 'database', '~> 2.2.0'
-depends 'nodejs', '~> 1.3.0'
 
+depends 'nodejs'
 depends 'samba'
