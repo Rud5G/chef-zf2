@@ -95,6 +95,7 @@ begin
         user projectdata['owner']
         cwd projectdata['projectdir']
         code <<-EOH
+          php composer.phar selfupdate
           php composer.phar install
         EOH
       end if projectdata['use_composer']
