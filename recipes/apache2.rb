@@ -8,15 +8,11 @@
 #
 
 include_recipe 'apache2'
-# include_recipe 'apache2::mod_deflate'
-# include_recipe 'apache2::mod_expires'
-# include_recipe 'apache2::mod_headers'
-# include_recipe 'apache2::mod_php5'
-# include_recipe 'apache2::mod_rewrite'
+
 
 begin
   data_bag('virtualhosts').each do |virtualhost|
-    hostdata = data_bag_item('virtualhosts', virtualhost)
+    hostdata = data_bag_item('virtualhosts', virtualhost)[node.chef_environment]
 
     if hostdata['create_docroot']
       directory hostdata['docroot'] do
@@ -35,7 +31,7 @@ begin
 
     #webappname = '000-'+hostdata['id']
     
-    web_app hostdata['id'] do
+    web_app hostdata['server_name'] do
       enable hostdata['enable']
       server_name hostdata['server_name']
       server_aliases hostdata['server_aliases']
