@@ -36,8 +36,6 @@ begin
 
       # create parentprojectdir
       directory parentprojectdir.to_path do
-        owner projectdata['owner']
-        group projectdata['group']
         mode 00775
         action :create
         recursive true
