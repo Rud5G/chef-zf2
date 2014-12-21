@@ -18,12 +18,14 @@
 #
 
 begin
-
   data_bag('databases').each do |database|
     databasedata = data_bag_item('databases', database)[node.chef_environment]
 
-    begin
+    Chef::Log.debug(databasedata.inspect)
+    Chef::Log.debug("Cookbook #{cookbook_name} in the recipe: #{recipe_name}.")
 
+
+    begin
       database_connection = {
           :host => databasedata['host'],
           :port => databasedata['port']

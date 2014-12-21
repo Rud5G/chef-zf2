@@ -15,3 +15,7 @@ depends 'database', '~> 2.2.0'
 
 depends 'nodejs'
 depends 'samba'
+
+# additional for chef-solo
+depends 'chef-solo-search', '~> 0.5.1'
+
