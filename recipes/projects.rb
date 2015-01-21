@@ -80,7 +80,7 @@ begin
 
       # install composer.phar
       bash 'composer_installer' do
-        environment 'COMPOSER_HOME' => parentprojectdir.to_path
+        environment 'COMPOSER_HOME' => projectdata['projectdir']
         user projectdata['owner']
         cwd projectdata['projectdir']
         code <<-EOH
@@ -91,7 +91,7 @@ begin
 
       # composer install (uses: .lock file)
       bash 'install_composer' do
-        environment 'COMPOSER_HOME' => parentprojectdir.to_path
+        environment 'COMPOSER_HOME' => projectdata['projectdir']
         user projectdata['owner']
         cwd projectdata['projectdir']
         code <<-EOH
