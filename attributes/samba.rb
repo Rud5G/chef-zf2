@@ -35,8 +35,9 @@
 
 default['samba']['server_string'] = 'zf2'
 default['samba']['netbios_name'] = 'zf2'
+
 default['samba']['workgroup'] = 'WORKGROUP'
-default['samba']['interfaces'] = '127.0.0.0/8 eth0'
+default['samba']['interfaces'] = 'lo 127.0.0.0/8 eth0'
 default['samba']['hosts_allow'] = 'ALL'
 default['samba']['passdb_backend'] = 'tdbsam'
 default['samba']['dns_proxy'] = 'no'
@@ -45,3 +46,10 @@ default['samba']['config'] = '/etc/samba/smb.conf'
 default['samba']['log_dir'] = '/var/log/samba/%m.log'
 default['samba']['load_printers'] = 'no'
 
+# configure follow symlinks
+default['samba']['follow_symlinks'] = 'yes'
+default['samba']['wide_links'] = 'yes'
+default['samba']['unix_extensions'] = 'no'
+
+# the template cookbook (nil is the cookbook with the recipe)
+default['samba']['template_cookbook'] = nil # 'zf2'

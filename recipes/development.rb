@@ -34,12 +34,16 @@ if node.chef_environment == 'development'
   chef_gem 'chef-rewind'
   require 'chef/rewind'
 
+
+  template_cookbook = node['template_cookbook']
+  template_cookbook ||= cookbook_name.to_s
+
   # see
   include_recipe 'samba::server'
   # smb.conf.erb located inside zf2/templates/default/smb.conf.erb
   rewind :template => '/etc/samba/smb.conf' do
     source 'smb.conf.erb'
-    cookbook_name 'zf2'
+    cookbook_name template_cookbook
   end
 
   # samba

@@ -20,6 +20,11 @@ printcap name = /dev/null
 # hosts allow = <%= node['samba']['hosts_allow'] %>
 # dns proxy = <%= node['samba']['dns_proxy'] %>
 
+follow symlinks = <%= node['samba']['follow_symlinks'] %>
+wide links = <%= node['samba']['wide_links'] %>
+unix extensions = <%= node['samba']['unix_extensions'] %>
+
+
 
 
 #============================ Share Definitions ==============================

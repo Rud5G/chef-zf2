@@ -14,7 +14,9 @@ depends 'mysql', '~> 5.6.1'
 depends 'apache2', '~> 1.11.0'
 
 depends 'nodejs'
-depends 'samba'
+
+# development
+depends 'samba', '~> 0.12.0'
 
 # additional for chef-solo
 depends 'chef-solo-search', '~> 0.5.1'
