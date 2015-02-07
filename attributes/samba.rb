@@ -17,39 +17,61 @@
 # limitations under the License.
 #
 
-# samba (only for dev)
-# default['samba']['workgroup'] = 'WORKGROUP'   #- The SMB workgroup to use, default 'SAMBA'.
-# default['samba']['interfaces']                #- Interfaces to listen on, default 'lo 127.0.0.1'.
-# default['samba']['hosts_allow']               #- Allowed hosts/networks, default '127.0.0.0/8'.
-# default['samba']['bind_interfaces_only']      #- Limit interfaces to serve SMB, default 'no'
-# default['samba']['server_string']             #- Server string value, default 'Samba Server'.
-# default['samba']['load_printers']             #- Whether to load printers, default 'no'.
-# default['samba']['passdb_backend']            #- Which password backend to use, default 'tdbsam'.
-# default['samba']['dns_proxy']                 #- Whether to search NetBIOS names through DNS, default 'no'.
-# default['samba']['security']                  #- Samba security mode, default 'user'.
-# default['samba']['map_to_guest']              #- What Samba should do with logins that don't match Unix users, default 'Bad User'.
-# default['samba']['socket_options']            #- Socket options, default 'TCP_NODELAY'
-# default['samba']['config']                    #- Location of Samba configuration, default '/etc/samba/smb.conf'.
-# default['samba']['log_dir']                   #- Location of Samba logs, default '/var/log/samba/%m.log'.
+# global config
 
+default['samba']['workgroup']             = 'WORKGROUP'
+default['samba']['interfaces']            = 'lo 127.0.0.1'
+default['samba']['bind_interfaces_only']  = 'no'
+default['samba']['hosts_allow']           = 'ALL'
+default['samba']['server_string']         = Chef::Config[:node_name] + ' samba server'
+# 'Samba VM Server: ' + cookbook_name.to_s
+default['samba']['load_printers']         = 'no'
+default['samba']['passdb_backend']        = 'tdbsam'
+default["samba"]['enable_users_search']   = true
+default['samba']['dns_proxy']             = 'no'
+default['samba']['security']              = 'user'
+default['samba']['map_to_guest']          = 'Never'
+default['samba']['socket_options']        = 'TCP_NODELAY IPTOS_LOWDELAY SO_KEEPALIVE SO_SNDBUF=8192'
+default['samba']['shares_data_bag']       = 'samba'
+default['samba']['users_data_bag']        = 'users'
 
-default['samba']['server_string'] = 'zf2'
+# not standard in samba cookbook
 default['samba']['netbios_name'] = 'zf2'
 
-default['samba']['workgroup'] = 'WORKGROUP'
-default['samba']['interfaces'] = 'lo 127.0.0.0/8 eth0'
-default['samba']['hosts_allow'] = 'ALL'
-default['samba']['passdb_backend'] = 'tdbsam'
-default['samba']['dns_proxy'] = 'no'
-default['samba']['security'] = 'user'
-default['samba']['config'] = '/etc/samba/smb.conf'
-default['samba']['log_dir'] = '/var/log/samba/%m.log'
-default['samba']['load_printers'] = 'no'
+# prevent printing error in the logs
+default['samba']['printing'] = 'bsd'
+default['samba']['printcap_name'] = '/dev/null'
 
 # configure follow symlinks
 default['samba']['follow_symlinks'] = 'yes'
 default['samba']['wide_links'] = 'yes'
 default['samba']['unix_extensions'] = 'no'
 
-# the template cookbook (nil is the cookbook with the recipe)
+# "Configure Options"-documentation
+#
+# https://www.samba.org/samba/docs/using_samba/appb.html
+# cache:https://www.samba.org/samba/docs/using_samba/appb.html
+
+# template cookbook (nil is the cookbook with the recipe)
 default['samba']['template_cookbook'] = nil # 'zf2'
+
+# windows support
+default['samba']['support_windows_clients'] = true
+
+# windows support settings
+if node['samba']['support_windows_clients']
+  default['samba']['nt_acl_support'] = 'yes'
+  default['samba']['hide_dot_files'] = 'yes'
+  default['samba']['map_archive'] = 'yes'
+  default['samba']['map_hidden'] = 'no'
+  default['samba']['map_system'] = 'no'
+  default['samba']['case_sensitive'] = 'yes'
+else
+  # fix (read: kill) windows
+  default['samba']['nt_acl_support'] = 'no'
+  default['samba']['hide_dot_files'] = 'no'
+  default['samba']['map_archive'] = 'no'
+  default['samba']['map_hidden'] = 'no'
+  default['samba']['map_system'] = 'no'
+  default['samba']['case_sensitive'] = 'yes'
+end

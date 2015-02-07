@@ -19,8 +19,11 @@
 
 if node.chef_environment == 'development'
 
+  # users check
+  include_recipe 'baseserver::users'
+
+  # git
   package 'git-flow'
-  package 'phpmyadmin'
 
   # git config
   # git config --global color.ui true
@@ -28,26 +31,29 @@ if node.chef_environment == 'development'
   # git config --global user.name "Your Name"
   # git config --global user.email you@example.com
 
-  # users
-  include_recipe 'baseserver::users'
+  # phpmyadmin
+  package 'phpmyadmin'
 
+
+  # samba prep.
   chef_gem 'chef-rewind'
   require 'chef/rewind'
 
-
-  template_cookbook = node['template_cookbook']
+  # determine the cookbook of the template.
+  template_cookbook = node['samba']['template_cookbook']
   template_cookbook ||= cookbook_name.to_s
 
-  # see
+  # samba server
   include_recipe 'samba::server'
-  # smb.conf.erb located inside zf2/templates/default/smb.conf.erb
+  # smb.conf.erb located inside <template_cookbook> /templates/default/smb.conf.erb
   rewind :template => '/etc/samba/smb.conf' do
     source 'smb.conf.erb'
     cookbook_name template_cookbook
   end
 
-  # samba
+  # samba client
   include_recipe 'samba::default'
+
 
   # nodejs for grunt
   include_recipe 'nodejs'
@@ -58,6 +64,7 @@ if node.chef_environment == 'development'
     EOH
   end
 
+  # mailcatcher
   include_recipe 'zf2::mailcatcher'
 
 end
