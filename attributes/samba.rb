@@ -47,15 +47,28 @@ default['samba']['follow_symlinks'] = 'yes'
 default['samba']['wide_links'] = 'yes'
 default['samba']['unix_extensions'] = 'yes'
 
-# windows support
-default['samba']['case_sensitive'] = 'yes'
-default['samba']['hide_dot_files'] = 'no'
-default['samba']['map_archive'] = 'no'
-default['samba']['map_hidden'] = 'no'
-default['samba']['map_system'] = 'no'
 
-# fix (read: kill) windows
-default['samba']['nt_acl_support'] = 'no'
 
 # template cookbook (nil is the cookbook with the recipe)
 default['samba']['template_cookbook'] = nil # 'zf2'
+
+# windows support
+default['samba']['support_windows_clients'] = true
+
+# windows support settings
+if node['samba']['support_windows_clients']
+  default['samba']['nt_acl_support'] = 'yes'
+  default['samba']['hide_dot_files'] = 'yes'
+  default['samba']['map_archive'] = 'yes'
+  default['samba']['map_hidden'] = 'no'
+  default['samba']['map_system'] = 'no'
+  default['samba']['case_sensitive'] = 'yes'
+else
+  # fix (read: kill) windows
+  default['samba']['nt_acl_support'] = 'no'
+  default['samba']['hide_dot_files'] = 'no'
+  default['samba']['map_archive'] = 'no'
+  default['samba']['map_hidden'] = 'no'
+  default['samba']['map_system'] = 'no'
+  default['samba']['case_sensitive'] = 'yes'
+end
