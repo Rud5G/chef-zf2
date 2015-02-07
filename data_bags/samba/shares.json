@@ -4,14 +4,13 @@
         "zf2tutorial": {
             "comment": "zf2tutorial Development Share",
             "path": "/srv/www/zf2tutorial",
-            "only user": "no",
             "guest ok": "no",
+            "only user": "no",
+            "valid users": ["developer"],
             "writeable": "yes",
             "browseable": "yes",
-            "revalidate": "yes",
-            "valid users": ["developer"],
-            "create mask": "0664",
-            "directory mask": "0775" ,
+            "create mask": "0777",
+            "directory mask": "0777",
             "force user": "projectuser"
         }
     }

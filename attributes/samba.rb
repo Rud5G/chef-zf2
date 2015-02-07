@@ -21,8 +21,8 @@
 
 default['samba']['workgroup']             = 'WORKGROUP'
 default['samba']['interfaces']            = 'lo 127.0.0.1'
-default['samba']['hosts_allow']           = '127.0.0.0/8'
 default['samba']['bind_interfaces_only']  = 'no'
+default['samba']['hosts_allow']           = 'ALL'
 default['samba']['server_string']         = Chef::Config[:node_name] + ' samba server'
 # 'Samba VM Server: ' + cookbook_name.to_s
 default['samba']['load_printers']         = 'no'
@@ -40,14 +40,17 @@ default['samba']['netbios_name'] = 'zf2'
 
 # prevent printing error in the logs
 default['samba']['printing'] = 'bsd'
-default['samba']['printcap name'] = '/dev/null'
+default['samba']['printcap_name'] = '/dev/null'
 
 # configure follow symlinks
 default['samba']['follow_symlinks'] = 'yes'
 default['samba']['wide_links'] = 'yes'
-default['samba']['unix_extensions'] = 'yes'
+default['samba']['unix_extensions'] = 'no'
 
-
+# "Configure Options"-documentation
+#
+# https://www.samba.org/samba/docs/using_samba/appb.html
+# cache:https://www.samba.org/samba/docs/using_samba/appb.html
 
 # template cookbook (nil is the cookbook with the recipe)
 default['samba']['template_cookbook'] = nil # 'zf2'
