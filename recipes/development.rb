@@ -54,16 +54,6 @@ if node.chef_environment == 'development'
   # samba client
   include_recipe 'samba::default'
 
-
-  # nodejs for grunt
-  include_recipe 'nodejs'
-
-  bash 'install-grunt-simple' do
-    code <<-EOH
-      npm install -g grunt-cli
-    EOH
-  end
-
   # mailcatcher
   include_recipe 'zf2::mailcatcher'
 
