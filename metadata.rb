@@ -8,10 +8,10 @@ version          '0.6.0'
 
 depends 'baseserver', '~> 0.7.10'
 
-depends 'php', '~> 1.4.6'
-depends 'database', '~> 2.3.1'
-depends 'mysql', '~> 5.6.1'
-depends 'apache2', '~> 1.11.0'
+depends 'php', '~> 1.5.0'
+depends 'database', '~> 4.0.2'
+depends 'mysql', '~> 6.0.13'
+depends 'apache2', '~> 3.0.1'
 
 depends 'nodejs'
 
