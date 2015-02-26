@@ -1,15 +1,20 @@
-[![Stories in Ready](https://badge.waffle.io/Rud5G/chef-zf2.png?label=ready&title=Ready)](https://waffle.io/Rud5G/chef-zf2)
 # ZF2 cookbook
+--------------
+
+[![Build Status](https://travis-ci.org/Rud5G/chef-zf2.png?branch=master)](https://travis-ci.org/Rud5G/chef-zf2)
+[![Dependency Status](https://gemnasium.com/Rud5G/chef-zf2.png)](https://gemnasium.com/Rud5G/chef-zf2)
+[![Coverage Status](https://coveralls.io/repos/Rud5G/chef-zf2/badge.png?branch=master)](https://coveralls.io/r/Rud5G/chef-zf2?branch=master)
+[![Version Status](http://img.shields.io/badge/beta-0.7.10-blue.svg)](https://github.com/Rud5G/chef-zf2)
 
 # Requirements
 
 Install chef-dk from the downloads page on the [Chef-DK github page](https://github.com/opscode/chef-dk)
 
-Install Vagrant '>= 1.5.2' from the [Vagrant downloads page](http://www.vagrantup.com/download-archive/v1.5.2.html)
+Install latest Vagrant from the [Vagrant downloads page](https://www.vagrantup.com/downloads.html)
 
 Install the Vagrant plugins: Berkshelf, Omnibus, Hostmanager
 
-    $ vagrant plugin install vagrant-berkshelf --plugin-version '>= 2.0.1'
+    $ vagrant plugin install vagrant-berkshelf
     $ vagrant plugin install vagrant-omnibus
     $ vagrant plugin install vagrant-hostmanager
 
@@ -20,10 +25,9 @@ Set the required project (git), database, virtualhost & users in the databags
     $ vagrant up
     $ vagrant halt
 
+## Known Issues
 
-## Known Issues 
-
-The samba user setup is not done correct in the first run, to fix: 
+The samba user setup is not done correct in the first run, to fix:
 
     $ vagrant ssh
     $ sudo su
@@ -38,7 +42,6 @@ The samba user setup is not done correct in the first run, to fix:
 # Author
 
 Author:: Triple-networks (<r.gravestein@triple-networks.com>)
-
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Rud5G/chef-zf2/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
