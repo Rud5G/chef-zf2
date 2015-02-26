@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-default['nodejs']['install_method'] = 'binary'
 default['nodejs']['version'] = '0.11.16'
 
 
