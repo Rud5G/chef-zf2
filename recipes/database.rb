@@ -17,6 +17,18 @@
 # limitations under the License.
 #
 
+
+
+
+mysql_service 'default' do
+  port '3306'
+  version '5.5'
+  initial_root_password node['mysql']['server_root_password']
+  action [:create, :start]
+end
+
+
+
 begin
   data_bag('databases').each do |database|
     databasedata = data_bag_item('databases', database)[node.chef_environment]
@@ -33,7 +45,6 @@ begin
 
       case databasedata['type']
         when 'mysql'
-          include_recipe 'mysql::server'
           include_recipe 'database::mysql'
           database_connection.merge!({ :username => 'root', :password => node['mysql']['server_root_password'] })
 
