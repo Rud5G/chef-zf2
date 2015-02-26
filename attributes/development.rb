@@ -17,7 +17,9 @@
 # limitations under the License.
 #
 
-# global config
+# development
+
+# samba server
 
 default['samba']['workgroup']             = 'WORKGROUP'
 default['samba']['interfaces']            = 'lo 127.0.0.1'
