@@ -14,7 +14,7 @@ depends 'php', '~> 1.5.0'
 
 depends 'database', '~> 4.0.3'
 depends 'mysql', '~> 6.0.15'
-depends 'mysql2_chef_gem', '~> 1.0.1'
+depends 'mysql2_chef_gem', '~> 1.0'
 
 depends 'nodejs', '~> 2.2.0'
 
