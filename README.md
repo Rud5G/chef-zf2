@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/Rud5G/chef-zf2.png?branch=master)](https://travis-ci.org/Rud5G/chef-zf2)
 [![Dependency Status](https://gemnasium.com/Rud5G/chef-zf2.png)](https://gemnasium.com/Rud5G/chef-zf2)
 [![Coverage Status](https://coveralls.io/repos/Rud5G/chef-zf2/badge.png?branch=master)](https://coveralls.io/r/Rud5G/chef-zf2?branch=master)
-[![Version Status](http://img.shields.io/badge/beta-0.7.10-blue.svg)](https://github.com/Rud5G/chef-zf2)
+[![Version Status](http://img.shields.io/badge/beta-0.7.0-blue.svg)](https://github.com/Rud5G/chef-zf2)
 
 # Requirements
 
