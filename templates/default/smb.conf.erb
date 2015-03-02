@@ -19,6 +19,7 @@ printcap name = <%= node['samba']['printcap_name'] %>
 
 # symlinks
 follow symlinks = <%= node['samba']['follow_symlinks'] %>
+allow insecure wide links = <%= node['samba']['allow_insecure_wide_links'] %>
 wide links = <%= node['samba']['wide_links'] %>
 unix extensions = <%= node['samba']['unix_extensions'] %>
 

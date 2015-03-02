@@ -17,16 +17,22 @@
 # limitations under the License.
 #
 
+default['samba']['server_string'] = 'zf2'
+default['samba']['netbios_name'] = 'zf2'
+
+# windows support
+default['samba']['support_windows_clients'] = true
+
+# template cookbook (nil is the cookbook with the recipe)
+default['samba']['template_cookbook'] = nil # default: nil
+
 # development
 
-# samba server
-
+# global config
 default['samba']['workgroup']             = 'WORKGROUP'
-default['samba']['interfaces']            = 'lo 127.0.0.1'
+default['samba']['interfaces']            = '127.0.0.0/8 eth0 eth1'
 default['samba']['bind_interfaces_only']  = 'no'
 default['samba']['hosts_allow']           = 'ALL'
-default['samba']['server_string']         = Chef::Config[:node_name] + ' samba server'
-# 'Samba VM Server: ' + cookbook_name.to_s
 default['samba']['load_printers']         = 'no'
 default['samba']['passdb_backend']        = 'tdbsam'
 default["samba"]['enable_users_search']   = true
@@ -37,28 +43,22 @@ default['samba']['socket_options']        = 'TCP_NODELAY IPTOS_LOWDELAY SO_KEEPA
 default['samba']['shares_data_bag']       = 'samba'
 default['samba']['users_data_bag']        = 'users'
 
-# not standard in samba cookbook
-default['samba']['netbios_name'] = 'zf2'
-
 # prevent printing error in the logs
 default['samba']['printing'] = 'bsd'
 default['samba']['printcap_name'] = '/dev/null'
 
 # configure follow symlinks
 default['samba']['follow_symlinks'] = 'yes'
+default['samba']['allow_insecure_wide_links'] = 'yes'
 default['samba']['wide_links'] = 'yes'
-default['samba']['unix_extensions'] = 'no'
+default['samba']['unix_extensions'] = 'yes'
 
-# "Configure Options"-documentation
+
+
+# 'Configure Options'-documentation
 #
 # https://www.samba.org/samba/docs/using_samba/appb.html
 # cache:https://www.samba.org/samba/docs/using_samba/appb.html
-
-# template cookbook (nil is the cookbook with the recipe)
-default['samba']['template_cookbook'] = nil # 'zf2'
-
-# windows support
-default['samba']['support_windows_clients'] = true
 
 # windows support settings
 if node['samba']['support_windows_clients']
@@ -77,3 +77,4 @@ else
   default['samba']['map_system'] = 'no'
   default['samba']['case_sensitive'] = 'yes'
 end
+
