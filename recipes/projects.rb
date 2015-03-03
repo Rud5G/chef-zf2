@@ -80,7 +80,7 @@ begin
 
       # install composer.phar
       bash 'composer_installer' do
-        environment 'COMPOSER_HOME' => projectdata['projectdir']
+        environment 'COMPOSER_HOME' => File.join('~' + projectdata['owner'], '.composer')
         user projectdata['owner']
         cwd projectdata['projectdir']
         code <<-EOH
