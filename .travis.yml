@@ -6,7 +6,7 @@ cache:
 before_script:
   - bundle exec berks install
 script:
-  - bundle exec foodcritic -f correctness .
+  - bundle exec foodcritic -f correctness -f ~FC023 .
   - bundle exec rubocop
   - bundle exec rspec
 branches:
