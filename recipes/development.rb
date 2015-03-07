@@ -46,7 +46,7 @@ if node.chef_environment == 'development'
   # samba server
   include_recipe 'samba::server'
   # smb.conf.erb located inside <template_cookbook> /templates/default/smb.conf.erb
-  rewind :template => '/etc/samba/smb.conf' do
+  rewind 'template[/etc/samba/smb.conf]' do
     source 'smb.conf.erb'
     cookbook_name template_cookbook
   end
