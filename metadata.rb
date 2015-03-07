@@ -12,7 +12,7 @@ depends 'baseserver', '~> 0.7.11'
 # webserver
 depends 'apache2', '~> 3.0.1'
 depends 'php', '~> 1.5.0'
-depends 'logrotate', '~> 1.8.0'
+depends 'logrotate', '~> 1.7.0'
 
 # database
 depends 'database', '~> 2.3.1'
