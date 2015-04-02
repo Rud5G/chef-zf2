@@ -17,7 +17,13 @@
 # limitations under the License.
 #
 
-default['php']['set_version'] = '5.4'
+default['php']['set_version'] = 'latest'
+
+# only if PHP 5.4 >=
+force_default['php']['ext_conf_dir'] = '/etc/php5/mods-available'
+default['php']['php5enmod'] = '/usr/sbin/php5enmod'
+
+# default php packages
 default['php']['packages'] = %w(
   curl libxml2-utils
   php-pear php-apc
