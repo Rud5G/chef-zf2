@@ -17,6 +17,4 @@
 # limitations under the License.
 #
 
-# ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
-
 default['application']['admin']['email']    = 'admin@zf2.example.com'
