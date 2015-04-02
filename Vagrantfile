@@ -70,11 +70,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 # vm config
   config.vm.hostname = 'zf2tutorial.zf2.dev'
 
-  config.vm.box = 'opscode-ubuntu-12.04'
-  config.vm.box_url = 'https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box'
+  #config.vm.box = 'opscode-ubuntu-12.04'
+  #config.vm.box_url = 'https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box'
 
-  #config.vm.box = 'opscode-ubuntu-14.04'
-  #config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box'
+  config.vm.box = 'opscode-ubuntu-14.04'
+  config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box'
 
   config.vm.network :private_network, :ip => '33.33.33.77'
 
