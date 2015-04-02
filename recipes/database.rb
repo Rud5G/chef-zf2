@@ -17,13 +17,17 @@
 # limitations under the License.
 #
 
+# need for secure_password
+::Chef::Node.send(:include, Opscode::OpenSSL::Password)
+
+
 begin
   data_bag('databases').each do |database|
-    databasedata = data_bag_item('databases', database)[node.chef_environment]
+    database_bagitem = data_bag_item('databases', database)
+    databasedata = database_bagitem[node.chef_environment]
 
-    Chef::Log.debug(databasedata.inspect)
-    Chef::Log.debug("Cookbook #{cookbook_name} in the recipe: #{recipe_name}.")
-
+    Chef::Log.info("Cookbook #{cookbook_name} in the recipe: #{recipe_name}.")
+    Chef::Log.info(databasedata.to_hash)
 
     begin
       database_connection = {
@@ -50,6 +54,13 @@ begin
             connection database_connection
             host 'localhost'
             action :drop
+          end
+
+          # set the secure_passwords
+          if databasedata['password'].nil?
+            database_bagitem[node.chef_environment]['password'] = secure_password
+            database_bagitem.save unless Chef::Config[:solo]
+            databasedata['password'] = database_bagitem[node.chef_environment]['password']
           end
 
           mysql_database_user databasedata['username'] do
