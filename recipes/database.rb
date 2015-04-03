@@ -20,6 +20,8 @@
 # need for secure_password
 ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
+node.set_unless['mysql']['server_root_password'] = secure_password
+node.save unless Chef::Config[:solo]
 
 begin
   data_bag('databases').each do |database|
