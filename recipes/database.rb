@@ -18,7 +18,8 @@
 #
 
 # need for secure_password
-::Chef::Node.send(:include, Opscode::OpenSSL::Password)
+Chef::Node.send(:include, Opscode::OpenSSL::Password)
+Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
 node.set_unless['mysql']['server_root_password'] = secure_password
 node.save unless Chef::Config[:solo]
