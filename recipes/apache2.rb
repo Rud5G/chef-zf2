@@ -7,7 +7,15 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'apache2'
+# make sure for PHP we dont have the mpm_event mod
+# save to node here and set override in the attributes/apache2
+node.set['apache2']['mpm'] = 'prefork'
+node.save unless Chef::Config[:solo]
+
+include_recipe 'apache2::default'
+
+# this should not be required anymore.
+# include_recipe 'apache2::mpm_prefork'
 
 
 begin

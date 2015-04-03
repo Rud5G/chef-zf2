@@ -31,7 +31,9 @@ default['apache']['default_modules'] = %w[
 # custom
 default['apache']['canonical_host'] = false
 
-
+# make sure for PHP we dont have the mpm_event mod
+# set override here and save to node in the apache2 recipe
+override['apache2']['mpm'] = 'prefork'
 
 #  default['apache']['listen_addresses']              #- Addresses that httpd should listen on. Default is any ("*").
 #  default['apache']['listen_ports']                  #- Ports that httpd should listen on. Default is port 80.
