@@ -7,7 +7,7 @@ long_description 'Installs/Configures ZF2'
 version          '0.8.0'
 
 # baseserver
-depends 'baseserver', '~> 0.8.0'
+depends 'baseserver', '~> 0.8.3'
 
 # webserver
 depends 'apache2', '~> 3.0.1'
