@@ -1,13 +1,20 @@
 ---
 driver:
   name: vagrant
+  network:
+    - ['private_network', {ip: '192.168.33.33'}]
+  customize:
+    natdnsproxy1: 'off'
+    natdnshostresolver1: 'off'
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.4
+  - name: ubuntu-14.04
+    driver:
+      customize:
+        memory: 1024
 
 suites:
   - name: default

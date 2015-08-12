@@ -3,7 +3,7 @@
 
 VAGRANTFILE_API_VERSION = '2'
 VAGRANT_MIN_VERSION = '1.5.2'
-
+CHEF_VERSION = '12.3.0'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 # Check Vagrant version
@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Detects vagrant omnibus plugin
   if Vagrant.has_plugin?('vagrant-omnibus')
     puts 'INFO:  Vagrant-omnibus plugin detected.'
-    config.omnibus.chef_version = :latest
+    config.omnibus.chef_version = CHEF_VERSION
   else
     puts "FATAL: Vagrant-omnibus plugin not detected. Please install the plugin with\n       'vagrant plugin install vagrant-omnibus' from any other directory\n       before continuing."
     exit
@@ -71,9 +71,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 # vm config
   config.vm.hostname = 'zf2tutorial.zf2.dev'
 
-  #config.vm.box = 'opscode-ubuntu-12.04'
-  #config.vm.box_url = 'https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box'
-
   config.vm.box = 'opscode-ubuntu-14.04'
   config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box'
 
@@ -86,13 +83,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       '--memory', '1024',
       '--cpus', '2',
     ]
+    vb.customize ['modifyvm', :id, '--natdnsproxy1', 'off']
+    vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'off']
   end
 
   # Enable SSH agent forwarding for git clones
   config.ssh.forward_agent = true
 
 
-  config.vm.provision :chef_solo do |chef|
+  config.vm.provision :chef_zero do |chef|
     chef.data_bags_path = 'data_bags'
     chef.environments_path = 'environments'
     chef.roles_path = 'roles'
@@ -113,7 +112,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
 
     chef.run_list = %w(
-      role[base]
       recipe[zf2::servernode]
       recipe[zf2::development]
     )

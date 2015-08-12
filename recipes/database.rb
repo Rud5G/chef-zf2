@@ -17,12 +17,19 @@
 # limitations under the License.
 #
 
-# need for secure_password
-Chef::Node.send(:include, Opscode::OpenSSL::Password)
-Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
-node.set_unless['mysql']['server_root_password'] = secure_password
-node.save unless Chef::Config[:solo]
+
+#
+# # need for secure_password
+# Chef::Node.send(:include, Opscode::OpenSSL::Password)
+# Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+#
+# node.set_unless['mysql']['server_root_password'] = secure_password
+# node.save unless Chef::Config[:solo]
+
+
+defaultmysqlinstance = 'default'
+
 
 begin
   data_bag('databases').each do |database|
@@ -40,10 +47,17 @@ begin
 
       case databasedata['type']
         when 'mysql'
-          include_recipe 'mysql::server'
-          include_recipe 'database::mysql'
-          database_connection.merge!({ :username => 'root', :password => node['mysql']['server_root_password'] })
 
+          include_recipe 'zf2::mysql'
+
+          database_connection.merge!({
+              :username => 'root',
+              :password => node['mysql']['server_root_password'],
+              :socket   => "/var/run/mysql-#{defaultmysqlinstance}/mysqld.sock"
+          })
+
+
+          # Create a mysql database on a named mysql instance
           mysql_database databasedata['dbname'] do
             connection database_connection
             collation 'utf8_bin'
@@ -51,13 +65,13 @@ begin
             action :create
           end
 
-          # remove possible account for anonmous user.
-          # See this MySQL bug: http://bugs.mysql.com/bug.php?id=31061
-          mysql_database_user '' do
-            connection database_connection
-            host 'localhost'
-            action :drop
-          end
+          # # remove possible account for anonmous user.
+          # # See this MySQL bug: http://bugs.mysql.com/bug.php?id=31061
+          # mysql_database_user '' do
+          #   connection database_connection
+          #   host 'localhost'
+          #   action :drop
+          # end
 
           # set the secure_passwords
           if databasedata['password'].nil?
