@@ -53,7 +53,7 @@ begin
           database_connection.merge!({
               :username => 'root',
               :password => node['mysql']['server_root_password'],
-              :socket   => "/var/run/mysql-#{defaultmysqlinstance}/mysqld.sock"
+              :socket   => "/run/mysql-#{defaultmysqlinstance}/mysqld.sock"
           })
 
 
