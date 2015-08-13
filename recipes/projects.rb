@@ -136,7 +136,6 @@ begin
     rescue Exception => e
       Chef::Log.warn("Could create project, exception; #{e}")
     end
-
   end
 rescue Net::HTTPServerException => e
   Chef::Application.fatal!("could not load data bag; #{e}")
