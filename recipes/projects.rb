@@ -84,7 +84,7 @@ begin
         user projectdata['owner']
         cwd projectdata['projectdir']
         code <<-EOH
-          curl -sS https://getcomposer.org/installer | php
+          php -r "readfile('https://getcomposer.org/installer');" | php
         EOH
         creates File.join(projectdata['projectdir'], 'composer.phar')
       end if projectdata['use_composer']
@@ -95,8 +95,8 @@ begin
         user projectdata['owner']
         cwd projectdata['projectdir']
         code <<-EOH
-          php composer.phar selfupdate
-          php composer.phar install
+          php composer.phar selfupdate --verbose --no-interaction
+          php composer.phar install --verbose --no-interaction
         EOH
       end if projectdata['use_composer']
 
