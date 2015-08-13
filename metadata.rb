@@ -23,6 +23,3 @@ depends 'mysql', '~> 6.0'
 
 # development
 depends 'samba', '~> 0.12.0'
-
-# additional for chef-solo
-#depends 'chef-solo-search', '~> 0.5.1'
