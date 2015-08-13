@@ -1,9 +1,5 @@
-source 'https://api.berkshelf.com'
-
+source 'https://supermarket.chef.io'
 
 metadata
 
-
 cookbook 'baseserver', github: 'Rud5G/chef-baseserver'
-# cookbook 'samba', github: 'Rud5G/samba-cookbook', branch: 'develop'
-

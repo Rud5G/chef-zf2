@@ -20,7 +20,7 @@
 
 default['apache']['contact'] = node['application']['admin']['email']
 
-default['apache']['default_site_enabled'] = true # false
+default['apache']['default_site_enabled'] = false
 
 default['apache']['default_modules'] = %w[
   status alias auth_basic autoindex
@@ -31,17 +31,11 @@ default['apache']['default_modules'] = %w[
 # custom
 default['apache']['canonical_host'] = false
 
-# make sure for PHP we dont have the mpm_event mod
-# set override here and save to node in the apache2 recipe
-override['apache2']['mpm'] = 'prefork'
-
-#  default['apache']['listen_addresses']              #- Addresses that httpd should listen on. Default is any ("*").
-#  default['apache']['listen_ports']                  #- Ports that httpd should listen on. Default is port 80.
-#  default['apache']['contact']                       #- Value for ServerAdmin directive. Default "ops@example.com".
-#  default['apache']['timeout']                       #- Value for the Timeout directive. Default is 300.
-#  default['apache']['keepalive']                     #- Value for the KeepAlive directive. Default is On.
-#  default['apache']['keepaliverequests']             #- Value for MaxKeepAliveRequests. Default is 100.
-#  default['apache']['keepalivetimeout']              #- Value for the KeepAliveTimeout directive. Default is 5.
-#  default['apache']['sysconfig_additional_params']   #- Additionals variables set in sysconfig file. Default is empty.
-#  default['apache']['default_modules']               #- Array of module names. Can take "mod_FOO" or "FOO" as names, where FOO is the apache module, e.g. "mod_status" or "status".
-#   The modules listed in default_modules will be included as recipes in recipe[apache::default].
+# XXX: apache2 cookbook 2.0.0 has bugs around changing the mpm and then attempting a graceful restart
+# which fails and leaves the service down.
+case node['platform']
+  when 'ubuntu'
+    if node['platform_version'].to_f >= 14.04
+      force_override[:apache][:mpm] = 'prefork'
+    end
+end

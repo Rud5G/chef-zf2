@@ -17,13 +17,29 @@
 # limitations under the License.
 #
 
-# need for secure_password
-Chef::Node.send(:include, Opscode::OpenSSL::Password)
-Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+# Configure the mysql2 Ruby gem.
+mysql2_chef_gem 'default' do
+  action :install
+end
 
-node.set_unless['mysql']['server_root_password'] = secure_password
-node.save unless Chef::Config[:solo]
+# Configure the MySQL client.
+mysql_client 'default' do
+  action :create
+end
 
+# Load the secrets file and the encrypted data bag item that holds the root password.
+##password_secret = Chef::EncryptedDataBagItem.load_secret(databasedata['passwords']['secret_path'])
+##root_password_data_bag_item = Chef::EncryptedDataBagItem.load('passwords', 'sql_server_root_password', password_secret)
+
+# Configure the MySQL service.
+mysql_service 'default' do
+  initial_root_password node['mysql']['server_root_password']
+  data_dir '/var/lib/mysql'
+  action [:create, :start]
+end
+
+
+# Configure databases
 begin
   data_bag('databases').each do |database|
     database_bagitem = data_bag_item('databases', database)
@@ -40,23 +56,18 @@ begin
 
       case databasedata['type']
         when 'mysql'
-          include_recipe 'mysql::server'
-          include_recipe 'database::mysql'
-          database_connection.merge!({ :username => 'root', :password => node['mysql']['server_root_password'] })
 
+          database_connection.merge!({
+              :host => databasedata['host'],
+              :username => 'root',
+              :socket   => "/run/mysql-#{defaultmysqlinstance}/mysqld.sock",
+              :password => node['mysql']['server_root_password']
+          })
+
+          # Create the database instance.
           mysql_database databasedata['dbname'] do
             connection database_connection
-            collation 'utf8_bin'
-            encoding 'utf8'
             action :create
-          end
-
-          # remove possible account for anonmous user.
-          # See this MySQL bug: http://bugs.mysql.com/bug.php?id=31061
-          mysql_database_user '' do
-            connection database_connection
-            host 'localhost'
-            action :drop
           end
 
           # set the secure_passwords
@@ -66,21 +77,21 @@ begin
             databasedata['password'] = database_bagitem[node.chef_environment]['password']
           end
 
+          # Add a database user.
           mysql_database_user databasedata['username'] do
             connection database_connection
-            host '%'
             password databasedata['password']
             database_name databasedata['dbname']
+            host '%'
             action [:create, :grant]
           end
         else
-          Chef::Log.warn('Unsupported database type.')
+          # this is now a feature
+          Chef::Log.info("Unmanaged database type: #{databasedata['type']}")
       end
-
     rescue Exception => e
       Chef::Log.warn("could not create database; #{e}")
     end
-
   end
 rescue Net::HTTPServerException => e
   Chef::Application.fatal!("could not load data bag; #{e}")

@@ -2,7 +2,6 @@ rvm:
   - 2.1
 cache:
   - bundler
-
 before_script:
   - bundle exec berks install
 script:
@@ -12,3 +11,4 @@ script:
 branches:
   only:
     - master
+sudo: false

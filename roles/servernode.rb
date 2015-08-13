@@ -8,8 +8,7 @@ run_list(
 )
 
 # Attributes applied if the node doesn't have it set already.
-default_attributes()
+default_attributes
 
 # Attributes applied no matter what the node has set already.
-override_attributes()
-
+override_attributes

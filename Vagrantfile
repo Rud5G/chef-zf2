@@ -1,9 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-VAGRANTFILE_API_VERSION = '2'
-VAGRANT_MIN_VERSION = '1.5.2'
+CHEF_VM_NAME = 'zf2tutorial-zf2'
+CHEF_VM_HOSTNAME = 'zf2tutorial.zf2.dev'
+CHEF_VM_ENVIRONMENT = 'development'
 
+VAGRANTFILE_API_VERSION = '2'
+VAGRANT_MIN_VERSION = '1.7.4'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 # Check Vagrant version
@@ -34,15 +37,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Detects vagrant berkshelf plugin
   if Vagrant.has_plugin?('berkshelf')
-    # The path to the Berksfile to use with Vagrant Berkshelf
     puts 'INFO:  Vagrant-berkshelf plugin detected.'
-    config.berkshelf.enabled = true
+    # The path to the Berksfile to use with Vagrant Berkshelf
     config.berkshelf.berksfile_path = './Berksfile'
+    config.berkshelf.enabled = true
   else
     puts "FATAL: Vagrant-berkshelf plugin not detected. Please install the plugin with\n       'vagrant plugin install vagrant-berkshelf' from any other directory\n       before continuing."
     exit
   end
-
 
   # Detects vagrant hostmanager plugin
   if Vagrant.has_plugin?('vagrant-hostmanager')
@@ -51,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.manage_host = true
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
-    config.hostmanager.aliases = %w(zf2tutorial.zf2.dev)
+    config.hostmanager.aliases = [CHEF_VM_HOSTNAME]
   else
     puts "WARN:  Vagrant-hostmanager plugin not detected. Please install the plugin with\n       'vagrant plugin install vagrant-hostmanager' from any other directory\n       before continuing."
   end
@@ -65,19 +67,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # rmemove duplicate
-  config.hostmanager.aliases = config.hostmanager.aliases.uniq
+  config.hostmanager.aliases = config.hostmanager.aliases.uniq!
 
-
-# vm config
-  config.vm.hostname = 'zf2tutorial.zf2.dev'
-
-  #config.vm.box = 'opscode-ubuntu-12.04'
-  #config.vm.box_url = 'https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box'
+  # vm config
+  config.vm.hostname = CHEF_VM_HOSTNAME
 
   config.vm.box = 'opscode-ubuntu-14.04'
   config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box'
 
-  config.vm.network :private_network, :ip => '33.33.33.77'
+  config.vm.network :private_network, :ip => '10.9.8.8'
 
   config.vm.provider :virtualbox do |vb|
     # Give enough horsepower to build without taking all day.
@@ -91,19 +89,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Enable SSH agent forwarding for git clones
   config.ssh.forward_agent = true
 
-
-  config.vm.provision :chef_solo do |chef|
+  # provision config
+  config.vm.provision :chef_zero do |chef|
+    chef.cookbooks_path = 'cookbooks'
     chef.data_bags_path = 'data_bags'
     chef.environments_path = 'environments'
     chef.roles_path = 'roles'
 
-    chef.verbose_logging = true
+    chef.synced_folder_type = :nfs
+
+    chef.node_name = CHEF_VM_NAME
+    chef.environment = CHEF_VM_ENVIRONMENT
+
     chef.log_level = :info
     # chef.log_level = :debug
-    chef.node_name = 'zf2'
-    chef.environment = 'development'
+    chef.verbose_logging = true
 
-    # chef.provisioning_path = guest_cache_path
     chef.json = {
       :mysql => {
         :server_root_password => 'rootpass',
@@ -113,10 +114,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
 
     chef.run_list = %w(
-      role[base]
       recipe[zf2::servernode]
       recipe[zf2::development]
     )
   end
 end
-

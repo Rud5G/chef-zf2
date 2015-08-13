@@ -6,6 +6,7 @@
         "port": 3306,
         "username": "dbuser",
         "password": "dbpass",
-        "dbname": "zf2tutorial"
+        "dbname": "zf2tutorial",
+        "serverinstance": "default"
     }
 }
