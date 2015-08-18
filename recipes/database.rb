@@ -41,10 +41,10 @@ node.save unless Chef::Config[:solo]
 # Configure the MySQL service.
 mysql_service 'default' do
   initial_root_password node['mysql']['server_root_password']
-  # data_dir '/var/lib/mysql'
-  # socket node['mysql']['default_socket']
   action [:create, :start]
 end
+# data_dir '/var/lib/mysql'
+# socket node['mysql']['default_socket']
 
 # Chef log node.mysql
 Chef::Log.info('node[mysql].to_hash')
@@ -76,7 +76,6 @@ begin
               :username => 'root',
               :password => node['mysql']['server_root_password']
           })
-
           # :socket   => socket_file,
 
           # Create the database instance.
