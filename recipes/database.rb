@@ -31,6 +31,9 @@ end
 ##password_secret = Chef::EncryptedDataBagItem.load_secret(databasedata['passwords']['secret_path'])
 ##root_password_data_bag_item = Chef::EncryptedDataBagItem.load('passwords', 'sql_server_root_password', password_secret)
 
+# needed for secure_password
+Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+
 # set the mysql-root-password
 node.set_unless['mysql']['server_root_password'] = secure_password
 node.save unless Chef::Config[:solo]
