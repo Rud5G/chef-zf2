@@ -31,13 +31,21 @@ end
 ##password_secret = Chef::EncryptedDataBagItem.load_secret(databasedata['passwords']['secret_path'])
 ##root_password_data_bag_item = Chef::EncryptedDataBagItem.load('passwords', 'sql_server_root_password', password_secret)
 
+# set the mysql-root-password
+node.set_unless['mysql']['server_root_password'] = secure_password
+node.save unless Chef::Config[:solo]
+
 # Configure the MySQL service.
 mysql_service 'default' do
   initial_root_password node['mysql']['server_root_password']
-  data_dir '/var/lib/mysql'
+  # data_dir '/var/lib/mysql'
+  # socket node['mysql']['default_socket']
   action [:create, :start]
 end
 
+# Chef log node.mysql
+Chef::Log.info('node[mysql].to_hash')
+Chef::Log.info(node['mysql'].to_hash)
 
 # Configure databases
 begin
@@ -57,12 +65,16 @@ begin
       case databasedata['type']
         when 'mysql'
 
+          # serverinstance = databasedata['serverinstance'] || 'default'
+          # socket_file = "/run/mysql-#{serverinstance}/mysqld.sock"
+
           database_connection.merge!({
               :host => databasedata['host'],
               :username => 'root',
-              :socket   => "/run/mysql-#{defaultmysqlinstance}/mysqld.sock",
               :password => node['mysql']['server_root_password']
           })
+
+          # :socket   => socket_file,
 
           # Create the database instance.
           mysql_database databasedata['dbname'] do
