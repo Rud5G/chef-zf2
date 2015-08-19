@@ -22,7 +22,7 @@ depends 'mysql', '~> 6.0'
 depends 'line', '~> 0.6.2'
 
 # frontend
-#depends 'nodejs', '~> 2.4.0'
+depends 'nodejs', '~> 2.4.0'
 
 # development
 depends 'samba', '~> 0.12.0'
