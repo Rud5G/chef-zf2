@@ -25,6 +25,6 @@ include_recipe 'zf2::webserver'
 
 include_recipe 'zf2::php'
 
-# include_recipe 'zf2::nodejs'
+include_recipe 'zf2::nodejs'
 
 include_recipe 'zf2::projects'
