@@ -1,5 +1,6 @@
 {
     "id": "zf2tutorial",
+    "enabled": true,
     "projectdir": "/srv/www/zf2tutorial",
     "owner": "projectuser",
     "group": "users",
@@ -14,5 +15,15 @@
     "createdirs": ["website","website/var","plugins"],
     "database_template": "zf2-db-local.php.erb",
     "database_settings_file": "config/autoload/local.php",
+    "create_dirs_before_symlink": [
+        "config"
+    ],
+    "symlinks": {
+
+    },
+    "symlink_before_migrate": {
+        "config/autoload": "config/autoload",
+        "config/autoload.php": "config/autoload.php"
+    },
     "cookbook_name": "zf2"
 }
