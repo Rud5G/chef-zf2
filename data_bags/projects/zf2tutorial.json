@@ -12,18 +12,26 @@
     "db_migration": false,
     "db_databag_id": "zf2tutorial",
     "writabledirs": ["data/"],
-    "createdirs": ["website","website/var","plugins"],
     "database_template": "zf2-db-local.php.erb",
     "database_settings_file": "config/autoload/local.php",
     "create_dirs_before_symlink": [
-        "config"
+        "config",
+        "config/autoload",
+        "website",
+        "website/var",
+        "plugins",
+        "data"
     ],
-    "symlinks": {
-
-    },
+    "purge_before_symlink": [
+        "data"
+    ],
     "symlink_before_migrate": {
         "config/autoload": "config/autoload",
         "config/autoload.php": "config/autoload.php"
+    },
+    "symlinks": {
+        "config/autoload": "config/autoload",
+        "data": "data"
     },
     "cookbook_name": "zf2"
 }

@@ -87,6 +87,9 @@ begin
         Chef::Log.info(databasedata.inspect)
       end
 
+      Chef::Log.info(projectdata.inspect)
+      Chef::Log.info(projectdata['create_dirs_before_symlink'].inspect)
+
       # start deploy resource
       deploy projectdata['projectdir'] do
         branch projectdata['revision']
@@ -118,10 +121,10 @@ begin
         #
         #
 
-        # symlinks and directories
-        symlink_before_migrate projectdata['symlink_before_migrate']
+        # symlinks and directories: in this order
+        create_dirs_before_symlink projectdata['create_dirs_before_symlink']
         purge_before_symlink projectdata['purge_before_symlink']
-        create_dirs_before_symlink projectdata['createdirs']
+        symlink_before_migrate projectdata['symlink_before_migrate']
         symlinks projectdata['symlinks']
 
         ## BEFORE_MIGRATE
@@ -141,6 +144,17 @@ begin
           deploy_resource = new_resource
 
 
+          # add writeable directories
+          projectdata['create_dirs_before_symlink'].each do |created_dir|
+            path = File.join(project_shared_path, created_dir)
+            directory path do
+              group projectdata['group']
+              mode 00644
+              owner projectdata['owner']
+              recursive false
+              action :create
+            end
+          end if projectdata['create_dirs_before_symlink']
 
           # add writeable directories
           projectdata['writabledirs'].each do |writabledir|
@@ -228,17 +242,6 @@ begin
 
 
         #
-        # # add writeable directories
-        # projectdata['writabledirs'].each do |writabledir|
-        #   path = File.join(projectdata['projectdir'], writabledir)
-        #   directory path do
-        #     group 'www-data'
-        #     mode 02777
-        #     owner projectdata['owner']
-        #     recursive false
-        #     action :create
-        #   end
-        # end if projectdata['writabledirs']
         #
         # # create directories if they do not exist
         # projectdata['createdirs'].each do |createdir|
