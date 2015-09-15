@@ -96,7 +96,7 @@ begin
         cwd projectdata['projectdir']
         code <<-EOH
           php composer.phar selfupdate --verbose --no-interaction
-          php composer.phar install --verbose --no-interaction
+          php composer.phar install -vvv --no-interaction
         EOH
       end if projectdata['use_composer']
 
