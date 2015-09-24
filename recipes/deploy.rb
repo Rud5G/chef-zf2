@@ -129,6 +129,10 @@ begin
 
         ## BEFORE_MIGRATE
         before_migrate do
+
+          Chef::Log.info('before_migrate')
+
+
           # set local var?
           project_shared_path = shared_path
 
@@ -142,7 +146,6 @@ begin
 
           # A local variable with the deploy resource.
           deploy_resource = new_resource
-
 
           # add writeable directories
           projectdata['create_dirs_before_symlink'].each do |created_dir|
@@ -200,8 +203,15 @@ begin
 
         ## BEFORE_SYMLINK
         before_symlink do
+
+          Chef::Log.info('before_symlink')
+
           # A local variable with the deploy resource.
           deploy_resource = new_resource
+
+          # release_path is the path to the timestamp dir
+          # for the current release
+          current_release = release_path
 
           # is local var?
           project_shared_path = shared_path
@@ -216,14 +226,10 @@ begin
             EOH
             creates File.join(project_shared_path, 'composer.phar')
           end if projectdata['use_composer']
-        end
 
-
-        ## BEFORE_RESTART
-        before_restart do
-          # release_path is the path to the timestamp dir
-          # for the current release
-          current_release = release_path
+          link "#{current_release}/composer.phar" do
+            to "#{project_shared_path}/composer.phar"
+          end
 
           # use the symlink of the composer.phar
           # composer install (uses: .lock file)
@@ -233,16 +239,39 @@ begin
             environment 'COMPOSER_HOME' => File.join('~', projectdata['owner'])
             user projectdata['owner']
             code <<-EOH
-              php composer.phar selfupdate || true
-              php composer.phar install -vvv || true
+              php composer.phar selfupdate
+              php composer.phar install
             EOH
           end if projectdata['use_composer']
+
+
         end
+
+
+        # ## BEFORE_RESTART
+        # before_restart do
+        #
+        #   Chef::Log.info('before_restart')
+        #
+        #   Chef::Log.info("current directory: #{current_release}")
+        #
+        #   # use the symlink of the composer.phar
+        #   # composer install (uses: .lock file)
+        #   bash 'install_composer' do
+        #     # cwd projectdata['projectdir']
+        #     cwd current_release
+        #     environment 'COMPOSER_HOME' => File.join('~', projectdata['owner'])
+        #     user projectdata['owner']
+        #     code <<-EOH
+        #       php composer.phar selfupdate || true
+        #       php composer.phar install -vvv || true
+        #     EOH
+        #   end if projectdata['use_composer']
+        # end
+
       end
 
 
-        #
-        #
         # # create directories if they do not exist
         # projectdata['createdirs'].each do |createdir|
         #   path = File.join(projectdata['projectdir'], createdir)

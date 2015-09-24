@@ -7,7 +7,7 @@
         "server_aliases": [
             "zf2tutorial.dev"
         ],
-        "docroot": "/srv/www/zf2tutorial/public",
+        "docroot": "/srv/www/zf2tutorial/current/public",
         "directory_index": [ "index.php", "index.html" ],
         "directory_options": [ "Indexes", "FollowSymLinks" ],
         "template": "web_app.conf.erb",
@@ -20,7 +20,7 @@
         "server_aliases": [
             "zf2tutorial.dev"
         ],
-        "docroot": "/srv/www/zf2tutorial/public",
+        "docroot": "/srv/www/zf2tutorial/current/public",
         "directory_index": [ "index.php", "index.html" ],
         "directory_options": [ "Indexes", "FollowSymLinks" ],
         "template": "web_app.conf.erb",
@@ -33,7 +33,7 @@
         "server_aliases": [
             "zf2tutorial.dev"
         ],
-        "docroot": "/srv/www/zf2tutorial/public",
+        "docroot": "/srv/www/zf2tutorial/current/public",
         "directory_index": [ "index.php", "index.html" ],
         "directory_options": [ "Indexes", "FollowSymLinks" ],
         "template": "web_app.conf.erb",
@@ -46,7 +46,7 @@
         "server_aliases": [
             "zf2tutorial.dev"
         ],
-        "docroot": "/srv/www/zf2tutorial/public",
+        "docroot": "/srv/www/zf2tutorial/current/public",
         "directory_index": [ "index.php", "index.html" ],
         "directory_options": [ "Indexes", "FollowSymLinks" ],
         "template": "web_app.conf.erb",

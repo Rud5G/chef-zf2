@@ -26,11 +26,9 @@
         "data"
     ],
     "symlink_before_migrate": {
-        "config/autoload": "config/autoload",
-        "config/autoload.php": "config/autoload.php"
+        "config/autoload/local.php": "config/autoload/local.php"
     },
     "symlinks": {
-        "config/autoload": "config/autoload",
         "data": "data"
     },
     "cookbook_name": "zf2"
