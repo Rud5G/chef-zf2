@@ -103,9 +103,7 @@ begin
       # database databag id
       if projectdata['db_databag_id']
         databasedata = data_bag_item('databases', projectdata['db_databag_id'])[node.chef_environment]
-
         cookbookname = projectdata['cookbook_name'] || cookbook_name.to_s
-
         template File.join(projectdata['projectdir'], projectdata['database_settings_file']) do
           source projectdata['database_template']
           cookbook cookbookname
