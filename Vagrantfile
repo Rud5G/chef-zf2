@@ -5,6 +5,7 @@ CHEF_VM_NAME = 'zf2tutorial-zf2'
 CHEF_VM_HOSTNAME = 'zf2tutorial.zf2.dev'
 CHEF_VM_ENVIRONMENT = 'development'
 
+VM_IP_ADDRESS = '10.9.8.8'
 VAGRANTFILE_API_VERSION = '2'
 VAGRANT_MIN_VERSION = '1.7.4'
 
@@ -75,7 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'opscode-ubuntu-14.04'
   config.vm.box_url = 'http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box'
 
-  config.vm.network :private_network, :ip => '10.9.8.8'
+  config.vm.network :private_network, :ip => VM_IP_ADDRESS
 
   config.vm.provider :virtualbox do |vb|
     # Give enough horsepower to build without taking all day.
