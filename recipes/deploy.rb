@@ -90,6 +90,15 @@ begin
       Chef::Log.info(projectdata.inspect)
       Chef::Log.info(projectdata['create_dirs_before_symlink'].inspect)
 
+
+
+      # execute database migrations
+      if projectdata['db_migration'] === true
+        migrationcmd = 'php public/index.php migration apply'
+      else
+        migrationcmd = projectdata['db_migration']
+      end
+
       # start deploy resource
       deploy projectdata['projectdir'] do
         branch projectdata['revision']
@@ -97,7 +106,7 @@ begin
         environment 'APP_ENV' => node.chef_environment, 'RAILS_ENV' => node.chef_environment
         git_ssh_wrapper ssh_wrapper_path
         keep_releases projectdata['depth'] || 5
-        migrate false
+        migrate projectdata.has_key?('db_migration')
         provider Chef::Provider::Deploy::Timestamped
         repository projectdata['repository']
         rollback_on_error false
@@ -106,6 +115,7 @@ begin
         user projectdata['owner']
         group projectdata['group']
         action :deploy
+        migration_command migrationcmd
 
         # about the callbacks and migrate, symlink, etc. functionality.
         # this is the exact order:
