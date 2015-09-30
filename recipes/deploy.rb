@@ -152,7 +152,7 @@ begin
             path = File.join(project_shared_path, created_dir)
             directory path do
               group projectdata['group']
-              mode 00644
+              mode 00755
               owner projectdata['owner']
               recursive false
               action :create
