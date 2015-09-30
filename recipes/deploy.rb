@@ -94,7 +94,7 @@ begin
 
       # execute database migrations
       if projectdata['db_migration'] === true
-        migrationcmd = 'php current/public/index.php migration apply'
+        migrationcmd = 'php public/index.php migration apply'
       else
         migrationcmd = projectdata['db_migration']
       end
@@ -115,7 +115,6 @@ begin
         user projectdata['owner']
         group projectdata['group']
         action :deploy
-        # migration_command migrationcmd
 
         # about the callbacks and migrate, symlink, etc. functionality.
         # this is the exact order:
@@ -211,7 +210,7 @@ begin
 
           bash 'db_migrations' do
             user projectdata['owner']
-            cwd projectdata['projectdir']
+            cwd File.join(projectdata['projectdir'], 'current')
             code <<-EOH
               #{migrationcmd}
             EOH
@@ -238,7 +237,7 @@ begin
           # install composer.phar in project_shared_path
           bash 'composer_installer' do
             cwd project_shared_path
-            environment 'COMPOSER_HOME' => File.join('~', projectdata['owner'])
+            environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'])
             user projectdata['owner']
             code <<-EOH
               php -r "readfile('https://getcomposer.org/installer');" | php
