@@ -94,7 +94,7 @@ begin
 
       # execute database migrations
       if projectdata['db_migration'] === true
-        migrationcmd = 'php public/index.php migration apply'
+        migrationcmd = 'php current/public/index.php migration apply'
       else
         migrationcmd = projectdata['db_migration']
       end
