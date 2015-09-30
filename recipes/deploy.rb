@@ -106,7 +106,7 @@ begin
         environment 'APP_ENV' => node.chef_environment, 'RAILS_ENV' => node.chef_environment
         git_ssh_wrapper ssh_wrapper_path
         keep_releases projectdata['depth'] || 5
-        migrate projectdata.has_key?('db_migration')
+        migrate false # projectdata.has_key?('db_migration')
         provider Chef::Provider::Deploy::Timestamped
         repository projectdata['repository']
         rollback_on_error false
@@ -115,7 +115,7 @@ begin
         user projectdata['owner']
         group projectdata['group']
         action :deploy
-        migration_command migrationcmd
+        # migration_command migrationcmd
 
         # about the callbacks and migrate, symlink, etc. functionality.
         # this is the exact order:
@@ -208,6 +208,15 @@ begin
               })
             end
           end
+
+          bash 'db_migrations' do
+            user projectdata['owner']
+            cwd projectdata['projectdir']
+            code <<-EOH
+              #{migrationcmd}
+            EOH
+          end if projectdata['db_migration']
+
         end
 
 
