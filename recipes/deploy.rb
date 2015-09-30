@@ -254,62 +254,9 @@ begin
             EOH
           end if projectdata['use_composer']
 
-
         end
 
-
-        # ## BEFORE_RESTART
-        # before_restart do
-        #
-        #   Chef::Log.info('before_restart')
-        #
-        #   Chef::Log.info("current directory: #{current_release}")
-        #
-        #   # use the symlink of the composer.phar
-        #   # composer install (uses: .lock file)
-        #   bash 'install_composer' do
-        #     # cwd projectdata['projectdir']
-        #     cwd current_release
-        #     environment 'COMPOSER_HOME' => File.join('~', projectdata['owner'])
-        #     user projectdata['owner']
-        #     code <<-EOH
-        #       php composer.phar selfupdate || true
-        #       php composer.phar install -vvv || true
-        #     EOH
-        #   end if projectdata['use_composer']
-        # end
-
       end
-
-
-        # # create directories if they do not exist
-        # projectdata['createdirs'].each do |createdir|
-        #   path = File.join(projectdata['projectdir'], createdir)
-        #   directory path do
-        #     group projectdata['group']
-        #     owner projectdata['owner']
-        #     recursive false
-        #     action :create
-        #   end unless File.directory?(path)
-        # end if projectdata['createdirs']
-        #
-        #
-        # # check if project is installed
-        #
-        # # execute database migrations
-        # if projectdata['db_migration'] === true
-        #   migrationcmd = 'php htdocs/shell/apply-updates run'
-        # else
-        #   migrationcmd = projectdata['db_migration']
-        # end
-        #
-        # bash 'db_migrations' do
-        #   user projectdata['owner']
-        #   cwd projectdata['projectdir']
-        #   code <<-EOH
-        #     #{migrationcmd}
-        #   EOH
-        # end if projectdata['db_migration']
 
     rescue Exception => e
       Chef::Log.warn("Could create project, exception; #{e}")
