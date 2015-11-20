@@ -145,6 +145,10 @@ begin
           # set local var?
           project_shared_path = shared_path
 
+          # release_path is the path to the timestamp dir
+          # set local var
+          current_release = release_path
+
           # directory project_shared_path do
           #   group projectdata['group']
           #   owner projectdata['owner']
@@ -210,7 +214,7 @@ begin
 
           bash 'db_migrations' do
             user projectdata['owner']
-            cwd File.join(projectdata['projectdir'], 'current')
+            cwd current_release
             code <<-EOH
               #{migrationcmd}
             EOH
