@@ -141,6 +141,11 @@ begin
 
           Chef::Log.info('before_migrate')
 
+          # right order:
+          #   - create symlinks (outward)
+          #   - composer install
+          #   - database migrations
+
 
           # set local var?
           project_shared_path = shared_path
@@ -149,16 +154,9 @@ begin
           # set local var
           current_release = release_path
 
-          # directory project_shared_path do
-          #   group projectdata['group']
-          #   owner projectdata['owner']
-          #   recursive false
-          #   action :create
-          # end unless File.directory?(project_shared_path)
-          #
-
           # A local variable with the deploy resource.
           deploy_resource = new_resource
+
 
           # add writeable directories
           projectdata['create_dirs_before_symlink'].each do |created_dir|
@@ -184,17 +182,71 @@ begin
             end
           end if projectdata['writabledirs']
 
+
+
+
+          Chef::Log.info('symnlink inspection')
+
+
           # make sure that the symlinks source can be saved (create the parent directory) in the shared root.
-          deploy_resource.symlink_before_migrate.each do |path_dir_or_file, symlink|
+          projectdata['symlink_before_migrate'].each do |path_dir_or_file, symlink|
+            abs_parent_path = Pathname.new(File.expand_path(path_dir_or_file, project_shared_path)).parent.to_path
+            # Chef::Log.debug("symlink: #{symlink} has the abs parent: #{abs_parent_path}")
+            Chef::Log.info("symlink: #{symlink} has the abs parent: #{abs_parent_path}")
+            create_dir_unless_exists(abs_parent_path)
+          end
+
+          # make sure that the database config file is linked
+          projectdata['symlink_before_migrate'].each do |path_dir_or_file, symlink|
+            linkfrom = File.join(current_release, path_dir_or_file)
+            linkto = File.join(project_shared_path, symlink)
+            link linkfrom do
+              to linkto
+              link_type :symbolic
+            end
+          end
+
+
+          projectdata['symlinks'].each do |path_dir_or_file, symlink|
             abs_parent_path = Pathname.new(File.expand_path(path_dir_or_file, project_shared_path)).parent.to_path
             Chef::Log.debug("symlink: #{symlink} has the abs parent: #{abs_parent_path}")
             create_dir_unless_exists(abs_parent_path)
           end
-          deploy_resource.symlinks.each do |path_dir_or_file, symlink|
-            abs_parent_path = Pathname.new(File.expand_path(path_dir_or_file, project_shared_path)).parent.to_path
-            Chef::Log.debug("symlink: #{symlink} has the abs parent: #{abs_parent_path}")
-            create_dir_unless_exists(abs_parent_path)
+
+
+
+          # composer install should before_migrate (before_symlink is too late)
+          # install composer.phar in project_shared_path
+          bash 'composer_installer' do
+            cwd project_shared_path
+            environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'])
+            user projectdata['owner']
+            code <<-EOH
+              php -r "readfile('https://getcomposer.org/installer');" | php
+            EOH
+            creates File.join(project_shared_path, 'composer.phar')
+          end if projectdata['use_composer']
+
+          link "#{current_release}/composer.phar" do
+            to "#{project_shared_path}/composer.phar"
           end
+
+          # use the symlink of the composer.phar
+          # composer install (uses: .lock file)
+          bash 'install_composer' do
+            # cwd projectdata['projectdir']
+            cwd current_release
+            environment 'COMPOSER_HOME' => File.join('~', projectdata['owner'])
+            user projectdata['owner']
+            code <<-EOH
+              php composer.phar selfupdate
+              php composer.phar install
+            EOH
+          end if projectdata['use_composer']
+
+
+          Chef::Log.info('template for the database config file')
+          Chef::Log.info(File.join(project_shared_path, projectdata['database_settings_file']).inspect)
 
           # database databag id
           if projectdata['db_databag_id']
@@ -226,45 +278,8 @@ begin
         ## BEFORE_SYMLINK
         before_symlink do
 
+          # not so much here at the moment.
           Chef::Log.info('before_symlink')
-
-          # A local variable with the deploy resource.
-          deploy_resource = new_resource
-
-          # release_path is the path to the timestamp dir
-          # for the current release
-          current_release = release_path
-
-          # is local var?
-          project_shared_path = shared_path
-
-          # install composer.phar in project_shared_path
-          bash 'composer_installer' do
-            cwd project_shared_path
-            environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'])
-            user projectdata['owner']
-            code <<-EOH
-              php -r "readfile('https://getcomposer.org/installer');" | php
-            EOH
-            creates File.join(project_shared_path, 'composer.phar')
-          end if projectdata['use_composer']
-
-          link "#{current_release}/composer.phar" do
-            to "#{project_shared_path}/composer.phar"
-          end
-
-          # use the symlink of the composer.phar
-          # composer install (uses: .lock file)
-          bash 'install_composer' do
-            # cwd projectdata['projectdir']
-            cwd current_release
-            environment 'COMPOSER_HOME' => File.join('~', projectdata['owner'])
-            user projectdata['owner']
-            code <<-EOH
-              php composer.phar selfupdate
-              php composer.phar install
-            EOH
-          end if projectdata['use_composer']
 
         end
 
