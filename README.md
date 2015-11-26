@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/Rud5G/chef-zf2.png?branch=master)](https://travis-ci.org/Rud5G/chef-zf2)
 [![Dependency Status](https://gemnasium.com/Rud5G/chef-zf2.png)](https://gemnasium.com/Rud5G/chef-zf2)
-[![Version Status](http://img.shields.io/badge/beta-0.7.2-blue.svg)](https://github.com/Rud5G/chef-zf2)
+[![Version Status](http://img.shields.io/badge/beta-0.10.0-blue.svg)](https://github.com/Rud5G/chef-zf2)
 
 # Requirements
 
