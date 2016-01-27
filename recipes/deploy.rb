@@ -236,6 +236,7 @@ begin
           bash 'install_composer' do
             # cwd projectdata['projectdir']
             cwd current_release
+            # should be better than hardcoded /home/user, but its still better then /root/user (issue chef-bash resource? )
             environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'])
             user projectdata['owner']
             code <<-EOH
