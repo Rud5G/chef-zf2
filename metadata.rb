@@ -12,6 +12,7 @@ depends 'baseserver', '~> 0.8.5'
 # webserver
 depends 'apache2', '~> 3.1.0'
 depends 'php', '~> 1.7.0'
+depends 'logrotate', '~> 1.9.2'
 
 # database
 depends 'mysql2_chef_gem', '~> 1.0'

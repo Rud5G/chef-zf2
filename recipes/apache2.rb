@@ -3,7 +3,7 @@
 # Recipe:: apache
 #
 # Copyright (C) 2013 Triple-networks
-# 
+#
 # All rights reserved - Do Not Redistribute
 #
 
@@ -22,15 +22,14 @@ begin
   data_bag('virtualhosts').each do |virtualhost|
     hostdata = data_bag_item('virtualhosts', virtualhost)[node.chef_environment]
 
-    if hostdata['create_docroot']
-      directory hostdata['docroot'] do
-        owner 'root'
-        group 'root'
-        mode '0755'
-        recursive true
-      end
+    directory hostdata['docroot'] do
+      owner 'root'
+      group 'root'
+      mode '0755'
+      recursive true
+      only_if hostdata['create_docroot'] == true
     end
-    
+
     # set default template
     hosttemplate = hostdata['template']
     hosttemplate ||= 'web_app.conf.erb'
@@ -38,7 +37,7 @@ begin
     hostcookbook ||= cookbook_name.to_s
 
     #webappname = '000-'+hostdata['id']
-    
+
     web_app hostdata['server_name'] do
       enable hostdata['enable']
       server_name hostdata['server_name']
