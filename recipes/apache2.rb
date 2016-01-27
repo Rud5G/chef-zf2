@@ -3,7 +3,7 @@
 # Recipe:: apache
 #
 # Copyright (C) 2013 Triple-networks
-# 
+#
 # All rights reserved - Do Not Redistribute
 #
 
@@ -30,7 +30,7 @@ begin
         recursive true
       end
     end
-    
+
     # set default template
     hosttemplate = hostdata['template']
     hosttemplate ||= 'web_app.conf.erb'
@@ -38,7 +38,7 @@ begin
     hostcookbook ||= cookbook_name.to_s
 
     #webappname = '000-'+hostdata['id']
-    
+
     web_app hostdata['server_name'] do
       enable hostdata['enable']
       server_name hostdata['server_name']

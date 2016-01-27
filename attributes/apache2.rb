@@ -36,6 +36,6 @@ default['apache']['canonical_host'] = false
 case node['platform']
   when 'ubuntu'
     if node['platform_version'].to_f >= 14.04
-      force_override[:apache][:mpm] = 'prefork'
+      force_override['apache']['mpm'] = 'prefork'
     end
 end
