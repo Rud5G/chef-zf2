@@ -231,16 +231,21 @@ begin
             to "#{project_shared_path}/composer.phar"
           end
 
+          github_oauth = projectdata['github-oauth'] || ''
+
           # use the symlink of the composer.phar
           # composer install (uses: .lock file)
           bash 'install_composer' do
             # cwd projectdata['projectdir']
             cwd current_release
             # should be better than hardcoded /home/user, but its still better then /root/user (issue chef-bash resource? )
-            environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'])
+            environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner']), 'GITHUB_OAUTH' => github_oauth
             user projectdata['owner']
             code <<-EOH
               php composer.phar selfupdate
+              if [[ -n "$GITHUB_OAUTH" ]]; then
+                  php composer.phar config -g "github-oauth.github.com" "$GITHUB_OAUTH"
+              fi
               php composer.phar install
             EOH
           end if projectdata['use_composer']
