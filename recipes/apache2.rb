@@ -22,12 +22,13 @@ begin
   data_bag('virtualhosts').each do |virtualhost|
     hostdata = data_bag_item('virtualhosts', virtualhost)[node.chef_environment]
 
-    directory hostdata['docroot'] do
-      owner 'root'
-      group 'root'
-      mode '0755'
-      recursive true
-      only_if hostdata['create_docroot'] == true
+    if hostdata['create_docroot']
+      directory hostdata['docroot'] do
+        owner 'root'
+        group 'root'
+        mode '0755'
+        recursive true
+      end
     end
 
     # set default template

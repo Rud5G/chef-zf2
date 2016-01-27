@@ -237,7 +237,7 @@ begin
             # cwd projectdata['projectdir']
             cwd current_release
             # should be better than hardcoded /home/user, but its still better then /root/user (issue chef-bash resource? )
-            environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'])
+            environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'], '.composer')
             user projectdata['owner']
             code <<-EOH
               php composer.phar selfupdate
