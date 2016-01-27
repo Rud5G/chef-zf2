@@ -14,11 +14,6 @@ group :lint do
   gem 'rubocop', '~> 0.34'
 end
 
-group :integration do
-  gem 'test-kitchen', '~> 1.4'
-  gem 'kitchen-vagrant', '~> 0.19'
-end
-
 group :kitchen_common do
   gem 'test-kitchen', '~> 1.4'
 end
