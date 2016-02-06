@@ -4,10 +4,17 @@ maintainer_email 'r.gravestein@triple-networks.com'
 license          'Apache 2.0'
 description      'Installs/Configures ZF2'
 long_description 'Installs/Configures ZF2'
-version          '0.10.2'
+version          '0.10.3'
+
+
+# support
+%w( ubuntu ).each do |os|
+  supports os
+end
+
 
 # baseserver
-depends 'baseserver', '~> 0.8.5'
+depends 'baseserver', '~> 0.8.6'
 
 # webserver
 depends 'apache2', '~> 3.1.0'
