@@ -89,6 +89,8 @@ begin
             database_bagitem[node.chef_environment]['password'] = secure_password
             database_bagitem.save unless Chef::Config[:solo]
             databasedata['password'] = database_bagitem[node.chef_environment]['password']
+
+            Chef::Log.info("database password #{databasedata['dbname']} reset")
           end
 
           # Add a database user.
