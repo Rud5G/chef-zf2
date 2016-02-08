@@ -103,11 +103,12 @@ begin
       deploy projectdata['projectdir'] do
         branch projectdata['revision']
         deploy_to projectdata['projectdir']
-        environment 'APP_ENV' => node.chef_environment, 'RAILS_ENV' => node.chef_environment
+        environment 'APP_ENV' => node.chef_environment, 'RAILS_ENV' => node.chef_environment, 'XDG_CONFIG_HOME' => File.join('/home', projectdata['owner'])
         git_ssh_wrapper ssh_wrapper_path
         keep_releases projectdata['depth'] || 5
         migrate false # projectdata.has_key?('db_migration')
         provider Chef::Provider::Deploy::Timestamped
+        # provider Chef::Provider::Deploy::Workstation
         repository projectdata['repository']
         rollback_on_error false
         scm_provider Chef::Provider::Git
@@ -219,7 +220,7 @@ begin
           # install composer.phar in project_shared_path
           bash 'composer_installer' do
             cwd project_shared_path
-            environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'])
+            environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'], '.composer')
             user projectdata['owner']
             code <<-EOH
               php -r "readfile('https://getcomposer.org/installer');" | php
@@ -246,7 +247,7 @@ begin
               if [[ -n "$GITHUB_OAUTH" ]]; then
                   php composer.phar config -g "github-oauth.github.com" "$GITHUB_OAUTH"
               fi
-              php composer.phar install
+              php composer.phar install -vvv
             EOH
           end if projectdata['use_composer']
 
