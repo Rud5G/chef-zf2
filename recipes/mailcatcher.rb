@@ -22,14 +22,14 @@ unless node.chef_environment == 'production'
 
   # This is a dependency of MailCatcher
   case node['platform_family']
-    when 'debian'
-      package 'sqlite'
-      package 'libsqlite3-dev'
-    when 'rhel', 'fedora', 'suse'
-      package 'libsqlite3-dev'
-    else
-      # type code here
-      Chef::Log.warn('Unsupported platform_family: '+ node['platform_family'])
+  when 'debian'
+    package 'sqlite'
+    package 'libsqlite3-dev'
+  when 'rhel', 'fedora', 'suse'
+    package 'libsqlite3-dev'
+  else
+    # type code here
+    Chef::Log.warn('Unsupported platform_family: ' + node['platform_family'])
   end
 
   # Install MailCatcher
@@ -55,10 +55,9 @@ unless node.chef_environment == 'production'
     action :create
   end
 
-
   bash 'php5enmod_mailcatcher' do
     code 'php5enmod mailcatcher'
-    only_if { ::File.exists?(node['php']['php5enmod']) }
+    only_if { ::File.exist?(node['php']['php5enmod']) }
   end
 
 end

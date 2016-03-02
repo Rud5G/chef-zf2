@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-
 # set ssh_wrapper from template
 ssh_wrapper_path = '/var/tmp/chef_ssh_wrapper.sh'
 template ssh_wrapper_path do
@@ -25,7 +24,6 @@ template ssh_wrapper_path do
   owner 'root'
   mode 0755
 end
-
 
 #
 # deploy 'name' do
@@ -63,9 +61,6 @@ end
 #   action                     Symbol # defaults to :create if not specified
 # end
 
-
-
-
 begin
   data_bag('projects').each do |project|
     projectdata = data_bag_item('projects', project)
@@ -89,8 +84,6 @@ begin
 
       Chef::Log.info(projectdata.inspect)
       Chef::Log.info(projectdata['create_dirs_before_symlink'].inspect)
-
-
 
       # execute database migrations
       if projectdata['db_migration'] === true
@@ -147,7 +140,6 @@ begin
           #   - composer install
           #   - database migrations
 
-
           # set local var?
           project_shared_path = shared_path
 
@@ -157,7 +149,6 @@ begin
 
           # A local variable with the deploy resource.
           deploy_resource = new_resource
-
 
           # add writeable directories
           projectdata['create_dirs_before_symlink'].each do |created_dir|
@@ -183,11 +174,7 @@ begin
             end
           end if projectdata['writabledirs']
 
-
-
-
           Chef::Log.info('symnlink inspection')
-
 
           # make sure that the symlinks source can be saved (create the parent directory) in the shared root.
           projectdata['symlink_before_migrate'].each do |path_dir_or_file, symlink|
@@ -207,14 +194,11 @@ begin
             end
           end
 
-
           projectdata['symlinks'].each do |path_dir_or_file, symlink|
             abs_parent_path = Pathname.new(File.expand_path(path_dir_or_file, project_shared_path)).parent.to_path
             Chef::Log.debug("symlink: #{symlink} has the abs parent: #{abs_parent_path}")
             create_dir_unless_exists(abs_parent_path)
           end
-
-
 
           # composer install should before_migrate (before_symlink is too late)
           # install composer.phar in project_shared_path
@@ -251,7 +235,6 @@ begin
             EOH
           end if projectdata['use_composer']
 
-
           Chef::Log.info('template for the database config file')
           Chef::Log.info(File.join(project_shared_path, projectdata['database_settings_file']).inspect)
 
@@ -265,8 +248,8 @@ begin
               group projectdata['group']
               mode 0644
               sensitive true
-              variables ({
-                  :database => deploy_databasedata
+              variables({
+                :database => deploy_databasedata
               })
             end
           end
@@ -281,13 +264,10 @@ begin
 
         end
 
-
         ## BEFORE_SYMLINK
         before_symlink do
-
           # not so much here at the moment.
           Chef::Log.info('before_symlink')
-
         end
 
       end

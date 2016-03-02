@@ -17,16 +17,15 @@
 # limitations under the License.
 #
 
-
 default['apache']['contact'] = node['application']['admin']['email']
 
 default['apache']['default_site_enabled'] = false
 
-default['apache']['default_modules'] = %w[
+default['apache']['default_modules'] = %w(
   status alias auth_basic autoindex
   dir env mime negotiation setenvif
   mod_deflate mod_expires mod_headers mod_php5 mod_rewrite
-]
+)
 
 # custom
 default['apache']['canonical_host'] = false
@@ -34,8 +33,8 @@ default['apache']['canonical_host'] = false
 # apache2 cookbook 2.0.0 has bugs around changing the mpm and then attempting a graceful restart
 # which fails and leaves the service down.
 case node['platform']
-  when 'ubuntu'
-    if node['platform_version'].to_f >= 14.04
-      force_override['apache']['mpm'] = 'prefork'
-    end
+when 'ubuntu'
+  if node['platform_version'].to_f >= 14.04
+    force_override['apache']['mpm'] = 'prefork'
+  end
 end
