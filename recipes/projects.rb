@@ -111,7 +111,7 @@ begin
           group projectdata['group']
           mode 0644
           variables(
-              :database => databasedata
+            :database => databasedata
           )
         end
       end

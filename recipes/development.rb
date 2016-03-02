@@ -34,7 +34,6 @@ if node.chef_environment == 'development'
   # phpmyadmin
   package 'phpmyadmin'
 
-
   # samba prep.
   chef_gem 'chef-rewind' do
     compile_time true

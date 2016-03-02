@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-default['application']['admin']['email']    = 'admin@zf2.example.com'
+default['application']['admin']['email'] = 'admin@zf2.example.com'

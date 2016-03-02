@@ -35,7 +35,7 @@ default['samba']['bind_interfaces_only']  = 'no'
 default['samba']['hosts_allow']           = 'ALL'
 default['samba']['load_printers']         = 'no'
 default['samba']['passdb_backend']        = 'tdbsam'
-default["samba"]['enable_users_search']   = true
+default['samba']['enable_users_search']   = true
 default['samba']['dns_proxy']             = 'no'
 default['samba']['security']              = 'user'
 default['samba']['map_to_guest']          = 'Never'
@@ -53,12 +53,11 @@ default['samba']['allow_insecure_wide_links'] = 'yes'
 default['samba']['wide_links'] = 'yes'
 default['samba']['unix_extensions'] = 'yes'
 
-
-
 # 'Configure Options'-documentation
 #
 # https://www.samba.org/samba/docs/using_samba/appb.html
 # cache:https://www.samba.org/samba/docs/using_samba/appb.html
+default['samba']['case_sensitive'] = 'yes'
 
 # windows support settings
 if node['samba']['support_windows_clients']
@@ -67,7 +66,6 @@ if node['samba']['support_windows_clients']
   default['samba']['map_archive'] = 'yes'
   default['samba']['map_hidden'] = 'no'
   default['samba']['map_system'] = 'no'
-  default['samba']['case_sensitive'] = 'yes'
 else
   # fix (read: kill) windows
   default['samba']['nt_acl_support'] = 'no'
@@ -75,6 +73,4 @@ else
   default['samba']['map_archive'] = 'no'
   default['samba']['map_hidden'] = 'no'
   default['samba']['map_system'] = 'no'
-  default['samba']['case_sensitive'] = 'yes'
 end
-
