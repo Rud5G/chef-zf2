@@ -36,7 +36,9 @@ if node.chef_environment == 'development'
 
 
   # samba prep.
-  chef_gem 'chef-rewind'
+  chef_gem 'chef-rewind' do
+    compile_time true
+  end
   require 'chef/rewind'
 
   # determine the cookbook of the template.

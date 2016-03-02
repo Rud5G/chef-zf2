@@ -1,20 +1,29 @@
 source 'https://rubygems.org'
 
 group :development do
-  gem 'berkshelf', '~> 3.2.1'
   gem 'cane'
-  gem 'chefspec', '~> 4.0.1'
-  gem 'foodcritic', '~> 4.0.0'
-  gem 'rubocop', '~> 0.28.0'
 end
 
-group :integration do
-  gem 'test-kitchen', '~> 1.2'
-  gem 'kitchen-vagrant', '~> 0.15'
+group :unit do
+  gem 'berkshelf',  '~> 4.0'
+  gem 'chefspec',   '~> 4.4'
+end
+
+group :lint do
+  gem 'foodcritic', '~> 5.0'
+  gem 'rubocop', '~> 0.34'
+end
+
+group :kitchen_common do
+  gem 'test-kitchen', '~> 1.4'
+end
+
+group :kitchen_vagrant do
+  gem 'kitchen-vagrant', '~> 0.19'
 end
 
 group :test do
-  gem 'coveralls', :require => false
-  gem 'simplecov', :require => false
+  gem 'coveralls', require: false
+  gem 'simplecov', require: false
 end
 

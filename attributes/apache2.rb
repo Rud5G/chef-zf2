@@ -31,11 +31,11 @@ default['apache']['default_modules'] = %w[
 # custom
 default['apache']['canonical_host'] = false
 
-# XXX: apache2 cookbook 2.0.0 has bugs around changing the mpm and then attempting a graceful restart
+# apache2 cookbook 2.0.0 has bugs around changing the mpm and then attempting a graceful restart
 # which fails and leaves the service down.
 case node['platform']
   when 'ubuntu'
     if node['platform_version'].to_f >= 14.04
-      force_override[:apache][:mpm] = 'prefork'
+      force_override['apache']['mpm'] = 'prefork'
     end
 end
