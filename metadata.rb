@@ -26,6 +26,8 @@ depends 'mysql2_chef_gem', '~> 1.0'
 depends 'database', '~> 4.0.8'
 depends 'mysql', '~> 6.0'
 
+depends 'openssl', '~> 4.4.0'
+
 # line
 depends 'line', '~> 0.6.2'
 
