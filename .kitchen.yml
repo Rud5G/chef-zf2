@@ -4,7 +4,6 @@ driver:
   name: vagrant
   network:
     - ["private_network", {ip: "10.11.11.17"}]
-#    - ["private_network", {ip: "192.168.34.34"}]
 
 provisioner:
   name: chef_zero
