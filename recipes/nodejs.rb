@@ -27,3 +27,7 @@ end
 nodejs_npm 'bower' do
   options ['--global']
 end
+
+nodejs_npm 'npm-check-updates' do
+  options ['--global']
+end

@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
-default['nodejs']['version'] = '0.11.16'
+
+# find the latest stable version: http://nodejs.org/dist/latest/
+default['nodejs']['version'] = '6.2.0'
 
 
