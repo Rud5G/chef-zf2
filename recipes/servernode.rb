@@ -19,6 +19,8 @@
 
 include_recipe 'zf2::baseserver'
 
+include_recipe 'zf2::swap'
+
 include_recipe 'zf2::database'
 
 include_recipe 'zf2::webserver'
