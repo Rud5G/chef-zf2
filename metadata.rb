@@ -16,6 +16,8 @@ end
 # baseserver
 depends 'baseserver', '~> 0.8.7'
 
+depends 'swap', '~> 0.3.8'
+
 # webserver
 depends 'apache2', '~> 3.2.2'
 depends 'php', '~> 1.8.0'
