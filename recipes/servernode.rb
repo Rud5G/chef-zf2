@@ -19,7 +19,7 @@
 
 include_recipe 'zf2::baseserver'
 
-include_recipe 'zf2::swap'
+include_recipe 'zf2::swap' unless node.chef_environment === 'testing'
 
 include_recipe 'zf2::database'
 
