@@ -6,6 +6,33 @@
         "port": 3306,
         "username": "dbuser",
         "password": "dbpass",
+        "dbname": "zf2tutorial__dev",
+        "serverinstance": "default"
+    },
+    "testing": {
+        "type": "mysql",
+        "host": "127.0.0.1",
+        "port": 3306,
+        "username": "dbuser",
+        "password": "dbpass",
+        "dbname": "zf2tutorial__test",
+        "serverinstance": "default"
+    },
+    "acceptance": {
+        "type": "mysql",
+        "host": "127.0.0.1",
+        "port": 3306,
+        "username": "dbuser",
+        "password": "dbpass",
+        "dbname": "zf2tutorial__test",
+        "serverinstance": "default"
+    },
+    "production": {
+        "type": "mysql",
+        "host": "127.0.0.1",
+        "port": 3306,
+        "username": "dbuser",
+        "password": null,
         "dbname": "zf2tutorial",
         "serverinstance": "default"
     }

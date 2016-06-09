@@ -18,7 +18,7 @@ suites:
   - name: servernode
     provisioner:
       client_rb:
-        environment: development
+        environment: testing
     driver:
       vm_hostname: zf2tutorial.zf2.dev
     run_list:
