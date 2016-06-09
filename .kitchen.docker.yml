@@ -44,7 +44,7 @@ suites:
   - name: baseserver
     provisioner:
       client_rb:
-        environment: development
+        environment: testing
     run_list:
       - recipe[zf2::servernode]
     attributes:
