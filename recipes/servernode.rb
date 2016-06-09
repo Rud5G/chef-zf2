@@ -19,7 +19,11 @@
 
 include_recipe 'zf2::baseserver'
 
-include_recipe 'zf2::swap' unless node.chef_environment === 'testing'
+unless node.chef_environment == 'testing'
+  Chef::Log.info(node.chef_environment)
+  Chef::Log.info(node.to_hash)
+  include_recipe 'zf2::swap'
+end
 
 include_recipe 'zf2::database'
 
