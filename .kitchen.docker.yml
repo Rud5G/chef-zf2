@@ -42,6 +42,9 @@ platforms:
 
 suites:
   - name: baseserver
+    provisioner:
+      client_rb:
+        environment: development
     run_list:
       - recipe[zf2::servernode]
     attributes:
