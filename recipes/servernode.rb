@@ -23,6 +23,8 @@ include_recipe 'zf2::swap' unless node.chef_environment === 'testing'
 
 include_recipe 'zf2::database'
 
+include_recipe 'zf2::mysql_logrotate'
+
 include_recipe 'zf2::webserver'
 
 include_recipe 'zf2::php'
