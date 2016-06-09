@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: zf2
-# Recipe:: webserver
+# Attribute:: database
 #
 # Copyright (C) 2014 Triple-networks
 #
@@ -17,5 +17,9 @@
 # limitations under the License.
 #
 
-include_recipe 'zf2::apache2'
-include_recipe 'logrotate::default'
+
+::Chef::Node.send(:include, OpenSSLCookbook::RandomPassword)
+# ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
+
+default_unless['mysql']['server_root_password'] = random_password
+default_unless['mysql']['admin_password'] = random_password

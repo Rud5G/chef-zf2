@@ -19,7 +19,15 @@
 
 include_recipe 'zf2::baseserver'
 
+unless node.chef_environment == 'testing'
+  Chef::Log.info(node.chef_environment)
+  Chef::Log.info(node.to_hash)
+  include_recipe 'zf2::swap'
+end
+
 include_recipe 'zf2::database'
+
+include_recipe 'zf2::mysql_logrotate'
 
 include_recipe 'zf2::webserver'
 

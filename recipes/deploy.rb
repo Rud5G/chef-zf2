@@ -107,7 +107,7 @@ begin
         git_ssh_wrapper ssh_wrapper_path
         keep_releases projectdata['depth'] || 5
         migrate false # projectdata.has_key?('db_migration')
-        provider Chef::Provider::Deploy::Timestamped
+        provider provider Chef::Provider::Deploy::Workstation
         # provider Chef::Provider::Deploy::Workstation
         repository projectdata['repository']
         rollback_on_error false
@@ -134,7 +134,7 @@ begin
         # symlinks and directories: in this order
         create_dirs_before_symlink projectdata['create_dirs_before_symlink']
         purge_before_symlink projectdata['purge_before_symlink']
-        symlink_before_migrate projectdata['symlink_before_migrate']
+        symlink_before_migrate({})
         symlinks projectdata['symlinks']
 
         ## BEFORE_MIGRATE
@@ -243,7 +243,7 @@ begin
             environment 'COMPOSER_HOME' => File.join('/home', projectdata['owner'], '.composer'), 'GITHUB_OAUTH' => github_oauth
             user projectdata['owner']
             code <<-EOH
-              php composer.phar selfupdate
+              php composer.phar selfupdate -vvv
               if [[ -n "$GITHUB_OAUTH" ]]; then
                   php composer.phar config -g "github-oauth.github.com" "$GITHUB_OAUTH"
               fi
