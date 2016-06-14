@@ -4,7 +4,7 @@ maintainer_email 'r.gravestein@triple-networks.com'
 license          'Apache 2.0'
 description      'Installs/Configures ZF2'
 long_description 'Installs/Configures ZF2'
-version          '0.10.4'
+version          '0.10.5'
 
 
 # support
@@ -26,7 +26,7 @@ depends 'logrotate', '~> 1.9.2'
 # database
 depends 'mysql2_chef_gem', '~> 1.0'
 depends 'database', '~> 5.1.2'
-depends 'mysql', '~> 7.0.0'
+depends 'mysql', '~> 7.1.1'
 
 depends 'openssl', '~> 4.4.0'
 
