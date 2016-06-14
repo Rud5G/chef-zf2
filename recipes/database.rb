@@ -38,6 +38,10 @@ end
   # node.set_unless['mysql']['server_root_password'] = secure_password
   # node.save unless Chef::Config[:solo]
 
+# Chef log node.mysql
+Chef::Log.info('node[mysql].to_hash')
+Chef::Log.info(node['mysql'].to_hash)
+
 # Configure the MySQL service.
 mysql_service 'default' do
   initial_root_password node['mysql']['server_root_password']
@@ -46,9 +50,6 @@ end
 # data_dir '/var/lib/mysql'
 # socket node['mysql']['default_socket']
 
-# Chef log node.mysql
-Chef::Log.info('node[mysql].to_hash')
-Chef::Log.info(node['mysql'].to_hash)
 
 # Configure databases
 begin
@@ -86,6 +87,8 @@ begin
 
           # set the secure_passwords
           if databasedata['password'].nil?
+            Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+
             database_bagitem[node.chef_environment]['password'] = secure_password
             database_bagitem.save unless Chef::Config[:solo]
             databasedata['password'] = database_bagitem[node.chef_environment]['password']
