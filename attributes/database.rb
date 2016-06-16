@@ -19,7 +19,7 @@
 
 
 ::Chef::Node.send(:include, OpenSSLCookbook::RandomPassword)
-# ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
-default_unless['mysql']['server_root_password'] = random_password
-default_unless['mysql']['admin_password'] = random_password
+node.set_unless['mysql']['server_root_password'] = random_password
+node.set_unless['mysql']['admin_password'] = random_password
+node.save unless Chef::Config[:solo]
