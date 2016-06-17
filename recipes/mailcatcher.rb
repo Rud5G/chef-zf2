@@ -33,7 +33,9 @@ unless node.chef_environment == 'production'
   end
 
   # Install MailCatcher
-  gem_package 'mailcatcher'
+  gem_package 'mailcatcher' do
+    action :install
+  end
 
   # Generate the startmailcatchcommand
   startmailcatchcommand = sprintf('mailcatcher --http-ip %s --http-port %s --smtp-ip %s --smtp-port %s', node['mailcatcher']['http-ip'], node['mailcatcher']['http-port'], node['mailcatcher']['smtp-ip'], node['mailcatcher']['smtp-port'])
