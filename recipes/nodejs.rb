@@ -20,14 +20,8 @@
 include_recipe 'nodejs::nodejs'
 include_recipe 'nodejs::npm'
 
-# nodejs_npm 'grunt' do
-#   options ['--global']
-# end
-
 nodejs_npm 'bower' do
   options ['--global']
 end
 
-nodejs_npm 'npm-check-updates' do
-  options ['--global']
-end
+
