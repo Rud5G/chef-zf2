@@ -19,8 +19,8 @@
 
 default['php']['install_method'] = 'recompile'
 
-default['php']['version'] = '5.6.25'
-default['php']['checksum'] = '8055bbe5a736986931c0c6a08b765d6d778271ec7d2d56c50a1ad259ec09f6de'
+# default['php']['version'] = '5.6.25'
+# default['php']['checksum'] = '8055bbe5a736986931c0c6a08b765d6d778271ec7d2d56c50a1ad259ec09f6de'
 
 
 # default php packages
