@@ -17,16 +17,26 @@
 # limitations under the License.
 #
 
-default['php']['set_version'] = 'latest'
+default['php']['install_method'] = 'recompile'
 
-# only if PHP 5.4 >=
-force_default['php']['ext_conf_dir'] = '/etc/php5/mods-available'
-default['php']['php5enmod'] = '/usr/sbin/php5enmod'
+default['php']['version'] = '5.6.25'
+default['php']['checksum'] = '8055bbe5a736986931c0c6a08b765d6d778271ec7d2d56c50a1ad259ec09f6de'
+
 
 # default php packages
 default['php']['packages'] = %w(
   curl libxml2-utils
   php-pear php-apc
   phpmyadmin
-  php5 php5-cli php5-common php5-curl php5-dev php5-gd php5-intl php5-mcrypt php5-mysql php5-xmlrpc php5-xsl
+  php5
+  php5-cli
+  php5-common
+  php5-curl
+  php5-dev
+  php5-gd
+  php5-intl
+  php5-mcrypt
+  php5-mysql
+  php5-xmlrpc
+  php5-xsl
 )
