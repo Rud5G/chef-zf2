@@ -9,10 +9,13 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: ubuntu-14.04
-    driver:
-      customize:
-        memory: 512
+- name: ubuntu-14.04
+  driver:
+    customize:
+      memory: 512
+  driver_config:
+    box: opscode-ubuntu-14.04
+    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box
 
 suites:
   - name: servernode
