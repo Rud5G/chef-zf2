@@ -20,7 +20,7 @@
 
 ::Chef::Node.send(:include, OpenSSLCookbook::RandomPassword)
 
-default['mysql']['version'] = '5.6'
+# default['mysql']['version'] = '5.6'
 
 node.set_unless['mysql']['server_root_password'] = random_password
 node.set_unless['mysql']['admin_password'] = random_password
