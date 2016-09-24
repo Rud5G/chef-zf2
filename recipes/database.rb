@@ -17,39 +17,25 @@
 # limitations under the License.
 #
 
-# Configure the mysql2 Ruby gem.
+
+# provides mysql gem resource
 mysql2_chef_gem 'default' do
   action :install
 end
 
-# Configure the MySQL client.
-mysql_client 'default' do
-  action :create
-end
-
-  # # Load the secrets file and the encrypted data bag item that holds the root password.
-  # ##password_secret = Chef::EncryptedDataBagItem.load_secret(databasedata['passwords']['secret_path'])
-  # ##root_password_data_bag_item = Chef::EncryptedDataBagItem.load('passwords', 'sql_server_root_password', password_secret)
-  #
-  # # needed for secure_password
-  # Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
-  #
-  # # set the mysql-root-password
-  # node.set_unless['mysql']['server_root_password'] = secure_password
-  # node.save unless Chef::Config[:solo]
-
-# Chef log node.mysql
-Chef::Log.info('node[mysql].to_hash')
-Chef::Log.info(node['mysql'].to_hash)
-
 # Configure the MySQL service.
 mysql_service 'default' do
   initial_root_password node['mysql']['server_root_password']
+  version node['mysql']['version']
   action [:create, :start]
 end
-# data_dir '/var/lib/mysql'
-# socket node['mysql']['default_socket']
 
+
+# Configure the MySQL client.
+mysql_client 'default' do
+  version node['mysql']['version']
+  action :create
+end
 
 # Configure databases
 begin

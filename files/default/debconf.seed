@@ -1,0 +1,6 @@
+# Ignore questions with a priority less than:
+# Choices: critical, high, medium, low
+debconf debconf/priority    select  low
+# Interface to use:
+# Choices: Dialog, Readline, Gnome, Kde, Editor, Noninteractive
+debconf debconf/frontend    select  Dialog

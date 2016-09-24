@@ -31,6 +31,11 @@ if node.chef_environment == 'development'
   # git config --global user.name "Your Name"
   # git config --global user.email you@example.com
 
+  # debconf
+  package 'debconf' do
+    response_file 'debconf.seed'
+  end
+
   # phpmyadmin
   package 'phpmyadmin'
 

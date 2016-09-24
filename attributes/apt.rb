@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: zf2
-# Recipe:: nodejs
+# Attribute:: apt
 #
 # Copyright (C) 2014 Triple-networks
 #
@@ -17,11 +17,4 @@
 # limitations under the License.
 #
 
-include_recipe 'nodejs::nodejs'
-include_recipe 'nodejs::npm'
-
-#nodejs_npm 'bower' do
-#  options ['--global']
-#end
-
-
+default['apt']['compiletime'] = true

@@ -25,8 +25,10 @@ default['apache']['default_site_enabled'] = false
 default['apache']['default_modules'] = %w[
   status alias auth_basic autoindex
   dir env mime negotiation setenvif
-  mod_deflate mod_expires mod_headers mod_php5 mod_rewrite
+  mod_deflate mod_expires mod_headers mod_rewrite
 ]
+# disabled because of the libapache2-mod-php5 issue on ubuntu 16.04
+# mod_php5
 
 # custom
 default['apache']['canonical_host'] = false
