@@ -32,8 +32,6 @@ suites:
     run_list:
       - recipe[zf2::servernode]
     attributes:
-      awesome_customers_ubuntu:
-        database:
-          root_password: 'rootpass'
-          admin_password: 'mysql_admin_password'
+      mysql:
+        server_root_password: 'rootpass'
 

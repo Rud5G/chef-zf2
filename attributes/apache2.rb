@@ -27,11 +27,11 @@ default['apache']['default_modules'] = %w[
   dir env mime negotiation setenvif
   mod_deflate mod_expires mod_headers mod_rewrite
 ]
-# disabled because of the libapache2-mod-php5 issue on ubuntu 16.04
-# mod_php5
 
 # custom
 default['apache']['canonical_host'] = false
+
+default['apache']['mod_php5']['install_method'] = false
 
 # apache2 cookbook 2.0.0 has bugs around changing the mpm and then attempting a graceful restart
 # which fails and leaves the service down.
