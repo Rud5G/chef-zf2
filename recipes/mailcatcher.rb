@@ -57,7 +57,6 @@ unless node.chef_environment == 'production'
     action :create
   end
 
-
   bash 'php5enmod_mailcatcher' do
     code 'php5enmod mailcatcher'
     only_if { ::File.exists?(node['php']['php5enmod']) }

@@ -48,7 +48,6 @@ begin
 
     begin
       database_connection = {
-          :host => databasedata['host'],
           :port => databasedata['port']
       }
 
@@ -60,6 +59,7 @@ begin
 
           database_connection.merge!({
               :host => databasedata['host'],
+              :port => databasedata['port'],
               :username => 'root',
               :password => node['mysql']['server_root_password']
           })
