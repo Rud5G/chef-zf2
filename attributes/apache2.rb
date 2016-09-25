@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-
 default['apache']['contact'] = node['application']['admin']['email']
 
 default['apache']['default_site_enabled'] = false

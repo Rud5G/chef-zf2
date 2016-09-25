@@ -14,10 +14,10 @@ services: docker
 
 env:
   matrix:
-  - INSTANCE=baseserver-ubuntu-1404
-#  - INSTANCE=baseserver-ubuntu-1204
+  - INSTANCE=baseserver-ubuntu-1604
 #  - INSTANCE=baseserver-ubuntu-1404
-#  - INSTANCE=baseserver-centos-6
+#  - INSTANCE=baseserver-ubuntu-1204
+#  - INSTANCE=baseserver-centos-8
 #  - INSTANCE=baseserver-centos-7
 
 # Don't `bundle install`
