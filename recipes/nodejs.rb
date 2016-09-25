@@ -17,11 +17,13 @@
 # limitations under the License.
 #
 
-include_recipe 'nodejs::nodejs'
-include_recipe 'nodejs::npm'
+include_recipe 'nodejs::default'
 
-#nodejs_npm 'bower' do
-#  options ['--global']
-#end
+#include_recipe 'nodejs::nodejs'
+#include_recipe 'nodejs::npm'
+
+nodejs_npm 'bower' do
+  options ['--global']
+end
 
 
