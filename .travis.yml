@@ -15,7 +15,7 @@ services: docker
 env:
   matrix:
   - INSTANCE=servernode-ubuntu-1604
-  - INSTANCE=servernode-ubuntu-1404
+#  - INSTANCE=servernode-ubuntu-1404
 #  - INSTANCE=servernode-ubuntu-1204
 #  - INSTANCE=servernode-centos-8
 #  - INSTANCE=servernode-centos-7
@@ -30,6 +30,7 @@ before_script:
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
   - /opt/chefdk/embedded/bin/chef gem install kitchen-docker
 script:
+  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen list
   - /opt/chefdk/embedded/bin/chef --version
   - /opt/chefdk/embedded/bin/rubocop --version
 #  - /opt/chefdk/embedded/bin/rubocop
@@ -37,7 +38,6 @@ script:
 #  - /opt/chefdk/embedded/bin/foodcritic . --exclude spec
   - /opt/chefdk/embedded/bin/foodcritic -f correctness .
 #  - /opt/chefdk/embedded/bin/rspec
-  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen list
   - KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
 
 branches:
