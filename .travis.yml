@@ -6,7 +6,8 @@ sudo: required
 addons:
   apt:
     sources:
-      - chef-stable-precise
+      - chef-stable-trusty
+      - chef-stable
     packages:
       - chefdk
 
@@ -14,11 +15,11 @@ services: docker
 
 env:
   matrix:
-  - INSTANCE=baseserver-ubuntu-1404
-#  - INSTANCE=baseserver-ubuntu-1204
-#  - INSTANCE=baseserver-ubuntu-1404
-#  - INSTANCE=baseserver-centos-6
-#  - INSTANCE=baseserver-centos-7
+  - INSTANCE=servernode-ubuntu-1604
+  - INSTANCE=servernode-ubuntu-1404
+#  - INSTANCE=servernode-ubuntu-1204
+#  - INSTANCE=servernode-centos-8
+#  - INSTANCE=servernode-centos-7
 
 # Don't `bundle install`
 install: echo "skip bundle install"
@@ -30,6 +31,7 @@ before_script:
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
   - /opt/chefdk/embedded/bin/chef gem install kitchen-docker
 script:
+  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen list
   - /opt/chefdk/embedded/bin/chef --version
   - /opt/chefdk/embedded/bin/rubocop --version
 #  - /opt/chefdk/embedded/bin/rubocop

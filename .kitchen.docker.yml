@@ -10,42 +10,57 @@ platforms:
 - name: ubuntu-12.04
   driver:
     image: ubuntu-upstart:12.04
-    platform: ubuntu
-    disable_upstart: false
-    run_command: /sbin/init
-    provision_command:
-      - /usr/bin/apt-get update
-      - /usr/bin/apt-get install apt-transport-https net-tools -y
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
+
 - name: ubuntu-14.04
   driver:
     image: ubuntu-upstart:14.04
-    platform: ubuntu
-    disable_upstart: false
-    run_command: /sbin/init
-    provision_command:
-      - /usr/bin/apt-get update
-      - /usr/bin/apt-get install apt-transport-https net-tools -y
-- name: centos-6
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
+
+- name: ubuntu-16.04
   driver:
-    image: centos:6
-    platform: rhel
-    run_command: /sbin/init
-    provision_command:
-      - /usr/bin/yum install -y initscripts net-tools wget
-- name: centos-7
+    image: ubuntu:16.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
+
+- name: debian-7
   driver:
-    image: centos:7
-    platform: rhel
-    run_command: /usr/lib/systemd/systemd
-    provision_command:
-      - /bin/yum install -y initscripts net-tools wget
+    image: debian:7
+    pid_one_command: /sbin/init
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install lsb-release procps net-tools -y
+
+- name: debian-8
+  driver:
+    image: debian:8
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install lsb-release net-tools -y
 
 suites:
-  - name: baseserver
+  - name: servernode
     provisioner:
       client_rb:
-        environment: testing
+        environment: development
+    driver:
+      vm_hostname: zf2tutorial.zf2.dev
     run_list:
       - recipe[zf2::servernode]
     attributes:
-
+      mysql:
+        server_root_password: 'rootpass'
+      supermarket_omnibus:
+        chef_server_url: https://notarealserver.chef.io
+        chef_oauth2_app_id: randomstring
+        chef_oauth2_secret: randomstring
+        chef_oauth2_verify_ssl: false

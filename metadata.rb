@@ -1,20 +1,20 @@
-name             'zf2'
-maintainer       'Triple-networks'
+name 'zf2'
+maintainer 'Triple-networks'
 maintainer_email 'r.gravestein@triple-networks.com'
-license          'Apache 2.0'
-description      'Installs/Configures ZF2'
+license 'Apache 2.0'
+description 'Installs/Configures ZF2'
 long_description 'Installs/Configures ZF2'
-version          '0.11.3'
+# issues_url 'https://github.com/Rud5G/chef-zf2/issues' if respond_to?(:issues_url)
+# source_url 'https://github.com/Rud5G/chef-zf2' if respond_to?(:source_url)
+version '0.11.6'
 
 
 # support
-%w( ubuntu ).each do |os|
-  supports os
-end
+supports ubuntu
 
 
 # baseserver
-depends 'baseserver', '~> 0.8.8'
+depends 'baseserver', '~> 0.9.1'
 
 depends 'swap', '~> 0.3.8'
 
