@@ -20,6 +20,6 @@
 
 if node['platform'] == 'ubuntu'
   if node['platform_version'].to_f == '16.04'
-    default['locales']['default'] = ''
+    default['locales']['default'] = 'en_US.UTF-8'
   end
 end
