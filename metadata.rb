@@ -10,7 +10,7 @@ version '0.11.6'
 
 
 # support
-supports ubuntu
+supports 'ubuntu'
 
 
 # baseserver
