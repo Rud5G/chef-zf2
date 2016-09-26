@@ -6,7 +6,8 @@ sudo: required
 addons:
   apt:
     sources:
-      - chef-stable-precise
+      - chef-stable-trusty
+      - chef-stable
     packages:
       - chefdk
 
@@ -15,7 +16,7 @@ services: docker
 env:
   matrix:
   - INSTANCE=servernode-ubuntu-1604
-#  - INSTANCE=servernode-ubuntu-1404
+  - INSTANCE=servernode-ubuntu-1404
 #  - INSTANCE=servernode-ubuntu-1204
 #  - INSTANCE=servernode-centos-8
 #  - INSTANCE=servernode-centos-7
