@@ -8,10 +8,8 @@ long_description 'Installs/Configures ZF2'
 # source_url 'https://github.com/Rud5G/chef-zf2' if respond_to?(:source_url)
 version '0.11.6'
 
-
 # support
 supports 'ubuntu'
-
 
 # baseserver
 depends 'baseserver', '~> 0.9.1'
