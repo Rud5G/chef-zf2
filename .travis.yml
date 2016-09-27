@@ -1,13 +1,9 @@
-rvm: 2.2
-
-sudo: required
-
-# install the stable chef-dk.  Use chef-current-precise to install the pre-release chef-dk release.
+# Use Travis's cointainer based infrastructure
+sudo: false
 addons:
   apt:
     sources:
-      - chef-stable-trusty
-      - chef-stable
+      - chef-current-trusty
     packages:
       - chefdk
 
