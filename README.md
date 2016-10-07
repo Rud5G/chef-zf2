@@ -42,6 +42,5 @@ The samba user setup is not done correct in the first run, to fix:
 
 Author:: Triple-networks (<r.gravestein@triple-networks.com>)
 
-
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Rud5G/chef-zf2/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
