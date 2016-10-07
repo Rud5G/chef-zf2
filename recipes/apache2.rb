@@ -14,9 +14,24 @@ node.save unless Chef::Config[:solo]
 
 include_recipe 'apache2::default'
 
+# apache_module 'php7.0' do
+#   conf false
+# end
+
+# execute "a2enmod php" do
+#   command "/usr/sbin/a2enmod php"
+#
+#   notifies :reload, 'service[apache2]', :delayed
+#   not_if do
+#     ::File.symlink?("#{node['apache']['dir']}/mods-enabled/php.load") &&
+#         (::File.exist?("#{node['apache']['dir']}/mods-available/php.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/php.conf") : true)
+#   end
+# end
+
+
+
 # this should not be required anymore.
 # include_recipe 'apache2::mpm_prefork'
-
 
 begin
   data_bag('virtualhosts').each do |virtualhost|
