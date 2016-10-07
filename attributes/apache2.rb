@@ -30,6 +30,7 @@ default['apache']['default_modules'] = %w[
 # custom
 default['apache']['canonical_host'] = false
 
+# is now php7.0
 default['apache']['mod_php5']['install_method'] = false
 
 # apache2 cookbook 2.0.0 has bugs around changing the mpm and then attempting a graceful restart

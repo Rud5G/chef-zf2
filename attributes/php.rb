@@ -22,6 +22,7 @@
 # default['php']['version'] = '5.6.25'
 # default['php']['checksum'] = '8055bbe5a736986931c0c6a08b765d6d778271ec7d2d56c50a1ad259ec09f6de'
 
+
 # php
 case node['platform_family']
   when 'debian'
@@ -48,6 +49,8 @@ case node['platform_family']
               php5-xsl
               libapache2-mod-php5
             )
+
+            default['php']['phpenmod'] = '/usr/sbin/php5enmod'
           when 16.04
             default['php']['packages'] = %w(
               curl
@@ -67,6 +70,8 @@ case node['platform_family']
               php-xsl
               libapache2-mod-php
             )
+
+            default['php']['phpenmod'] = '/usr/sbin/phpenmod'
           else
             # dont change anything.
         end
