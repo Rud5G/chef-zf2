@@ -7,7 +7,13 @@
 # All rights reserved - Do Not Redistribute
 #
 
+# if ubuntu14.04
+
+# add-apt-repository ppa:ondrej/php5-5.6
+# python-software-properties
+
 include_recipe 'php'
+
 
 # Chef::Recipe.send(:include, MysqlCookbook::Helpers)
 # Chef::Resource::Line.send(:include, MysqlCookbook::Helpers)

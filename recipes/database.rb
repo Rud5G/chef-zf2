@@ -18,6 +18,10 @@
 #
 
 
+package 'libmysqlclient-dev' do
+  action :install
+end
+
 # provides mysql gem resource
 mysql2_chef_gem 'default' do
   action :install

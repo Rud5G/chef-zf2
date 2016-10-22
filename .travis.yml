@@ -1,5 +1,7 @@
-# Use Travis's cointainer based infrastructure
-sudo: false
+sudo: required
+dist: trusty
+
+# install the pre-release chef-dk.  Use chef-stable-trusty to install the stable release
 addons:
   apt:
     sources:
