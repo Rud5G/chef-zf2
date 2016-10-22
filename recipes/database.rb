@@ -33,7 +33,8 @@ mysql_service 'default' do
   bind_address '0.0.0.0'
   port '3306'
   initial_root_password node['mysql']['server_root_password']
-  provider Chef::Provider::MysqlServiceManagerSystemd
+  # provider MysqlCookbook::MysqlServiceManagerSystemd
+  service_manager 'systemd'
   action [:create, :start]
 end
 
