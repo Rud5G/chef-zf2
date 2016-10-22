@@ -6,7 +6,7 @@ description 'Installs/Configures ZF2'
 long_description 'Installs/Configures ZF2'
 issues_url 'https://github.com/Rud5G/chef-zf2/issues' if respond_to?(:issues_url)
 source_url 'https://github.com/Rud5G/chef-zf2' if respond_to?(:source_url)
-version '0.11.7'
+version '0.11.8'
 
 # support
 supports 'ubuntu'
@@ -22,8 +22,8 @@ depends 'php', '~> 2.1.1'
 
 # database
 depends 'mysql2_chef_gem', '~> 1.0'
-depends 'database', '~> 5.1.2'
-depends 'mysql', '~> 7.0'
+depends 'database', '~> 6.0.0'
+depends 'mysql', '~> 8.0.4'
 
 depends 'openssl', '~> 6.0.0'
 
