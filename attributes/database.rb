@@ -22,6 +22,11 @@
 
 default['mysql']['version'] = '5.7'
 
-node.set_unless['mysql']['server_root_password'] = random_password
-node.set_unless['mysql']['admin_password'] = random_password
-node.save unless Chef::Config[:solo]
+Chef::Log.info('debug_value 1 mysql')
+Chef::Log.info(node.debug_value('mysql', 'server_root_password').inspect)
+
+node.default_unless['mysql']['server_root_password'] = random_password
+
+Chef::Log.info('debug_value 2 mysql')
+node.debug_value('mysql', 'server_root_password').inspect
+
