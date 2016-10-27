@@ -20,7 +20,7 @@
 
 ::Chef::Node.send(:include, OpenSSLCookbook::RandomPassword)
 
-default['mysql']['version'] = '5.7'
+#default['mysql']['version'] = '5.7'
 
 Chef::Log.info('debug_value 1 mysql')
 Chef::Log.info(node.debug_value('mysql', 'server_root_password').inspect)
