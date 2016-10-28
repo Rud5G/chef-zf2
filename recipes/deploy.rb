@@ -87,10 +87,9 @@ begin
         Chef::Log.info(databasedata.inspect)
       end
 
+      Chef::Log.info('start inspect')
       Chef::Log.info(projectdata.inspect)
-      Chef::Log.info(projectdata['create_dirs_before_symlink'].inspect)
-
-
+      Chef::Log.info(projectdata['remove_recursive_from_shared'].inspect)
 
       # execute database migrations
       if projectdata['db_migration'] === true
@@ -134,6 +133,7 @@ begin
         # symlinks and directories: in this order
         create_dirs_before_symlink projectdata['create_dirs_before_symlink']
         purge_before_symlink projectdata['purge_before_symlink']
+        # this is being done seperate (see below)
         symlink_before_migrate({})
         symlinks projectdata['symlinks']
 
@@ -183,6 +183,18 @@ begin
             end
           end if projectdata['writabledirs']
 
+
+          if projectdata['remove_recursive_from_shared'].nil?
+            Chef::Log.info("remove_recursive_from_shared is nil")
+          end
+
+          unless projectdata['remove_recursive_from_shared'].nil?
+            log_info = projectdata['remove_recursive_from_shared'].join(", ")
+            projectdata['remove_recursive_from_shared'].each do |dir|
+              FileUtils.rm_rf(File.join(project_shared_path, dir))
+            end
+            Chef::Log.info("in #{project_shared_path} purged directories: #{log_info}")
+          end
 
 
 
