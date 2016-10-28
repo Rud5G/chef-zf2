@@ -87,10 +87,9 @@ begin
         Chef::Log.info(databasedata.inspect)
       end
 
+      Chef::Log.info('start inspect')
       Chef::Log.info(projectdata.inspect)
-      Chef::Log.info(projectdata['create_dirs_before_symlink'].inspect)
-
-
+      Chef::Log.info(projectdata['remove_recursive_from_shared'].inspect)
 
       # execute database migrations
       if projectdata['db_migration'] === true
@@ -184,6 +183,10 @@ begin
             end
           end if projectdata['writabledirs']
 
+
+          if projectdata['remove_recursive_from_shared'].nil?
+            Chef::Log.info("remove_recursive_from_shared is nil")
+          end
 
           unless projectdata['remove_recursive_from_shared'].nil?
             log_info = projectdata['remove_recursive_from_shared'].join(", ")
