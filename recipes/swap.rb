@@ -4,7 +4,9 @@
 #
 # Copyright (c) 2015 The Authors, All Rights Reserved.
 
-swap_file '/mnt/swap' do
-  size 1024 # MBs
-  persist true
+
+
+swap_file node['swap']['file'] do
+  size node['swap']['size'] # MBs
+  persist node['swap']['persist']
 end
