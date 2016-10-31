@@ -27,6 +27,12 @@ mysql2_chef_gem 'default' do
   action :install
 end
 
+if node['platform'] == 'ubuntu' && node['platform_version'] == '16.04'
+    servicemanagername = 'systemd'
+else
+    servicemanagername = 'auto'
+end
+
 # Configure the MySQL service.
 mysql_service 'default' do
   version node['mysql']['version']
@@ -34,7 +40,7 @@ mysql_service 'default' do
   port '3306'
   initial_root_password node['mysql']['server_root_password']
   # provider MysqlCookbook::MysqlServiceManagerSystemd
-  service_manager 'systemd'
+  service_manager servicemanagername
   action [:create, :start]
 end
 
