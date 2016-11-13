@@ -53,6 +53,9 @@ end
 
 Chef::Recipe.send(:include, OpenSSLCookbook::RandomPassword)
 
+# dont create multiple password for the same user
+userswithnewpassword = Hash.new
+
 # Configure databases
 begin
   data_bag('databases').each do |database|
@@ -81,8 +84,14 @@ begin
           # set the secure_passwords
           if databasedata['password'].nil?
             begin
-              new_db_password = random_password
-              Chef::Log.info("database password #{databasedata['username']} for #{databasedata['dbname']} set")
+              if userswithnewpassword.has_key?(databasedata['username'])
+                new_db_password = userswithnewpassword[databasedata['username']]
+                Chef::Log.info("database user #{databasedata['username']} for #{databasedata['dbname']} set")
+              else
+                new_db_password = random_password
+                userswithnewpassword[databasedata['username']] = new_db_password
+                Chef::Log.info("database password #{databasedata['username']} for #{databasedata['dbname']} set")
+              end
               database_bagitem[node.chef_environment]['password'] = new_db_password
               database_bagitem.save
               databasedata['password'] = new_db_password
