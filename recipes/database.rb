@@ -28,9 +28,9 @@ mysql2_chef_gem 'default' do
 end
 
 if node['platform'] == 'ubuntu' && node['platform_version'] == '16.04'
-  servicemanagername = 'systemd'
+    servicemanagername = 'systemd'
 else
-  servicemanagername = 'auto'
+    servicemanagername = 'auto'
 end
 
 # Configure the MySQL service.
@@ -60,48 +60,50 @@ begin
     Chef::Log.info("Cookbook #{cookbook_name} in the recipe: #{recipe_name}.")
     Chef::Log.info(databasedata.to_hash)
 
-    database_connection = {
-        :port => databasedata['port']
-    }
+    begin
+      database_connection = {
+          :port => databasedata['port']
+      }
 
-    case databasedata['type']
-      when 'mysql'
+      case databasedata['type']
+        when 'mysql'
 
-        # serverinstance = databasedata['serverinstance'] || 'default'
-        # socket_file = "/run/mysql-#{serverinstance}/mysqld.sock"
+          # serverinstance = databasedata['serverinstance'] || 'default'
+          # socket_file = "/run/mysql-#{serverinstance}/mysqld.sock"
 
-        database_connection.merge!({
-           :host => databasedata['host'],
-           :port => databasedata['port'],
-           :username => 'root',
-           :password => node['mysql']['server_root_password']
-        })
-        # :socket   => socket_file,
+          database_connection.merge!({
+              :host => databasedata['host'],
+              :port => databasedata['port'],
+              :username => 'root',
+              :password => node['mysql']['server_root_password']
+          })
+          # :socket   => socket_file,
 
-
-        begin
           # Create the database instance.
           mysql_database databasedata['dbname'] do
             connection database_connection
             action :create
           end
-        rescue Exception => e
-          Chef::Log.warn("could not create database; #{e.message}")
-          Chef::Log.warn(e.backtrace.inspect)
-        end
 
-        # set the secure_passwords
-        if databasedata['password'].nil?
-          Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
-          database_bagitem[node.chef_environment]['password'] = secure_password
-          database_bagitem.save unless Chef::Config[:solo]
-          databasedata['password'] = database_bagitem[node.chef_environment]['password']
 
-          Chef::Log.info("database password #{databasedata['dbname']} (re)set")
-        end
+          unless databasedata['password'].nil?
+            Chef::Log.info("database password inspect")
+            Chef::Log.info(databasedata['password'].inspect)
+          end
 
-        begin
+
+          # set the secure_passwords
+          if databasedata['password'].nil?
+            Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+
+            database_bagitem[node.chef_environment]['password'] = secure_password
+            database_bagitem.save unless Chef::Config[:solo]
+            databasedata['password'] = database_bagitem[node.chef_environment]['password']
+
+            Chef::Log.info("database password #{databasedata['dbname']} reset")
+          end
+
           # Add a database user.
           mysql_database_user databasedata['username'] do
             connection database_connection
@@ -110,19 +112,13 @@ begin
             host '%'
             action [:create, :grant]
           end
-        rescue Exception => e
-          Chef::Log.warn("could not set database user; #{e.message}")
-          Chef::Log.warn(e.backtrace.inspect)
-        end
-
-
-
-
-      else
-        # this is now a feature
-        Chef::Log.info("Unmanaged database type: #{databasedata['type']}")
+        else
+          # this is now a feature
+          Chef::Log.info("Unmanaged database type: #{databasedata['type']}")
+      end
+    rescue Exception => e
+      Chef::Log.warn("could not create database; #{e}")
     end
-
   end
 rescue Net::HTTPServerException => e
   Chef::Application.fatal!("could not load data bag; #{e}")
