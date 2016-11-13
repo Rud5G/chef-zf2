@@ -28,9 +28,9 @@ mysql2_chef_gem 'default' do
 end
 
 if node['platform'] == 'ubuntu' && node['platform_version'] == '16.04'
-    servicemanagername = 'systemd'
+  servicemanagername = 'systemd'
 else
-    servicemanagername = 'auto'
+  servicemanagername = 'auto'
 end
 
 # Configure the MySQL service.
@@ -51,6 +51,8 @@ mysql_client 'default' do
   action :create
 end
 
+Chef::Recipe.send(:include, OpenSSLCookbook::RandomPassword)
+
 # Configure databases
 begin
   data_bag('databases').each do |database|
@@ -66,27 +68,28 @@ begin
         when 'mysql'
 
           database_connection.merge!({
-              :host => databasedata['host'],
-              :port => databasedata['port'],
-              :username => 'root',
-              :password => node['mysql']['server_root_password']
+            :host => databasedata['host'],
+            :port => databasedata['port'],
+            :username => 'root',
+            :password => node['mysql']['server_root_password']
           })
 
           Chef::Log.info("DatabaseRecipe #{recipe_name} in the cookbook #{cookbook_name}.")
           Chef::Log.info(databasedata.to_hash)
 
+
           # set the secure_passwords
           if databasedata['password'].nil?
-            Chef::Recipe.send(:include, OpenSSLCookbook::RandomPassword)
-
-            new_db_password = random_password
-
-            Chef::Log.info("database password #{databasedata['dbname']} set: #{new_db_password}")
-
-            database_bagitem[node.chef_environment]['password'] = new_db_password
-            database_bagitem.save
-
-            databasedata['password'] = new_db_password
+            begin
+              new_db_password = random_password
+              Chef::Log.info("database password #{databasedata['username']} for #{databasedata['dbname']} set")
+              database_bagitem[node.chef_environment]['password'] = new_db_password
+              database_bagitem.save
+              databasedata['password'] = new_db_password
+            rescue Exception => e
+              Chef::Log.warn("could not save the password in the node; #{e.message}")
+              Chef::Log.warn(e.backtrace.inspect)
+            end
           end
 
           begin
