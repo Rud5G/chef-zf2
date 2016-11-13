@@ -86,7 +86,7 @@ begin
           end
 
           # set the secure_passwords
-          if databasedata['password'].nil?
+          unless databasedata['password']
             Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
             database_bagitem[node.chef_environment]['password'] = secure_password
