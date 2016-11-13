@@ -57,9 +57,6 @@ begin
     database_bagitem = data_bag_item('databases', database)
     databasedata = database_bagitem[node.chef_environment]
 
-    Chef::Log.info("Cookbook #{cookbook_name} in the recipe: #{recipe_name}.")
-    Chef::Log.info(databasedata.to_hash)
-
     begin
       database_connection = {
           :port => databasedata['port']
@@ -68,16 +65,26 @@ begin
       case databasedata['type']
         when 'mysql'
 
-          # serverinstance = databasedata['serverinstance'] || 'default'
-          # socket_file = "/run/mysql-#{serverinstance}/mysqld.sock"
-
           database_connection.merge!({
               :host => databasedata['host'],
               :port => databasedata['port'],
               :username => 'root',
               :password => node['mysql']['server_root_password']
           })
-          # :socket   => socket_file,
+
+          Chef::Log.info("DatabaseRecipe #{recipe_name} in the cookbook #{cookbook_name}.")
+          Chef::Log.info(databasedata.to_hash)
+
+          # set the secure_passwords
+          if databasedata['password'].nil?
+            Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+
+            database_bagitem[node.chef_environment]['password'] = secure_password
+            database_bagitem.save unless Chef::Config[:solo]
+            databasedata['password'] = database_bagitem[node.chef_environment]['password']
+
+            Chef::Log.info("database password #{databasedata['dbname']} (re)set")
+          end
 
           begin
             # Create the database instance.
@@ -89,18 +96,6 @@ begin
             Chef::Log.warn("could not create database; #{e.message}")
             Chef::Log.warn(e.backtrace.inspect)
           end
-
-          # set the secure_passwords
-          if databasedata['password'].nil?
-            Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
-
-            database_bagitem[node.chef_environment]['password'] = secure_password
-            database_bagitem.save unless Chef::Config[:solo]
-            databasedata['password'] = database_bagitem[node.chef_environment]['password']
-
-            Chef::Log.info("database password #{databasedata['dbname']} reset")
-          end
-
 
           begin
             # Add a database user.
@@ -122,10 +117,12 @@ begin
           Chef::Log.info("Unmanaged database type: #{databasedata['type']}")
       end
     rescue Exception => e
-      Chef::Log.warn("could not create database; #{e}")
+      Chef::Log.warn("database issue: #{e.message}")
+      Chef::Log.warn(e.backtrace.inspect)
     end
   end
 rescue Net::HTTPServerException => e
-  Chef::Application.fatal!("could not load data bag; #{e}")
+  Chef::Log.warn("could not load data bag; #{e.message}")
+  Chef::Application.fatal!(e.backtrace.inspect)
 end
 
