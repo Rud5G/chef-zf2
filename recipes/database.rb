@@ -35,7 +35,7 @@ end
 
 # Configure the MySQL service.
 mysql_service 'default' do
-  version node['mysql']['version']
+  # version node['mysql']['version']
   bind_address '0.0.0.0'
   port '3306'
   initial_root_password node['mysql']['server_root_password']
@@ -47,7 +47,7 @@ end
 
 # Configure the MySQL client.
 mysql_client 'default' do
-  version node['mysql']['version']
+  # version node['mysql']['version']
   action :create
 end
 
@@ -77,13 +77,16 @@ begin
 
           # set the secure_passwords
           if databasedata['password'].nil?
-            Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+            Chef::Recipe.send(:include, OpenSSLCookbook::RandomPassword)
 
-            database_bagitem[node.chef_environment]['password'] = secure_password
-            database_bagitem.save unless Chef::Config[:solo]
-            databasedata['password'] = database_bagitem[node.chef_environment]['password']
+            new_db_password = random_password
 
-            Chef::Log.info("database password #{databasedata['dbname']} (re)set")
+            Chef::Log.info("database password #{databasedata['dbname']} set: #{new_db_password}")
+
+            database_bagitem[node.chef_environment]['password'] = new_db_password
+            database_bagitem.save
+
+            databasedata['password'] = new_db_password
           end
 
           begin
