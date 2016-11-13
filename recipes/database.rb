@@ -79,19 +79,16 @@ begin
           })
           # :socket   => socket_file,
 
-          # Create the database instance.
-          mysql_database databasedata['dbname'] do
-            connection database_connection
-            action :create
+          begin
+            # Create the database instance.
+            mysql_database databasedata['dbname'] do
+              connection database_connection
+              action :create
+            end
+          rescue Exception => e
+            Chef::Log.warn("could not create database; #{e.message}")
+            Chef::Log.warn(e.backtrace.inspect)
           end
-
-
-
-          unless databasedata['password'].nil?
-            Chef::Log.info("database password inspect")
-            Chef::Log.info(databasedata['password'].inspect)
-          end
-
 
           # set the secure_passwords
           if databasedata['password'].nil?
@@ -104,14 +101,22 @@ begin
             Chef::Log.info("database password #{databasedata['dbname']} reset")
           end
 
-          # Add a database user.
-          mysql_database_user databasedata['username'] do
-            connection database_connection
-            password databasedata['password']
-            database_name databasedata['dbname']
-            host '%'
-            action [:create, :grant]
+
+          begin
+            # Add a database user.
+            mysql_database_user databasedata['username'] do
+              connection database_connection
+              password databasedata['password']
+              database_name databasedata['dbname']
+              host '%'
+              action [:create, :grant]
+            end
+          rescue Exception => e
+            Chef::Log.warn("could not set database user; #{e.message}")
+            Chef::Log.warn(e.backtrace.inspect)
           end
+
+
         else
           # this is now a feature
           Chef::Log.info("Unmanaged database type: #{databasedata['type']}")
