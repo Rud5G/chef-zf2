@@ -85,8 +85,16 @@ begin
             action :create
           end
 
+
+
+          unless databasedata['password'].nil?
+            Chef::Log.info("database password inspect")
+            Chef::Log.info(databasedata['password'].inspect)
+          end
+
+
           # set the secure_passwords
-          unless databasedata['password']
+          if databasedata['password'].nil?
             Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
             database_bagitem[node.chef_environment]['password'] = secure_password
