@@ -25,6 +25,7 @@ unless node.chef_environment == 'production'
     when 'debian'
       package 'sqlite'
       package 'libsqlite3-dev'
+      package 'ruby-dev'
     when 'rhel', 'fedora', 'suse'
       package 'libsqlite3-dev'
     else
