@@ -33,8 +33,18 @@ unless node.chef_environment == 'production'
       Chef::Log.warn('Unsupported platform_family: '+ node['platform_family'])
   end
 
+  # gem install mime-types --version "< 3"
+  # gem install --conservative mailcatcher
+
+  # Install MailCatcher
+  gem_package 'mime-types' do
+    options('--version "<3"')
+    action :install
+  end
+
   # Install MailCatcher
   gem_package 'mailcatcher' do
+    options('--conservative')
     action :install
   end
 
