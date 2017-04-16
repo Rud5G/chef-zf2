@@ -6,32 +6,33 @@ description 'Installs/Configures ZF2'
 long_description 'Installs/Configures ZF2'
 issues_url 'https://github.com/Rud5G/chef-zf2/issues' if respond_to?(:issues_url)
 source_url 'https://github.com/Rud5G/chef-zf2' if respond_to?(:source_url)
-version '0.12.9'
+version '0.12.10'
 
 # support
 supports 'ubuntu'
 
 # baseserver
-depends 'baseserver', '~> 0.9.1'
+depends 'baseserver', '~> 0.9.3'
 
-depends 'swap', '~> 0.3.8'
+depends 'swap', '~> 2.0.0'
 
 # webserver
-depends 'apache2', '~> 3.2.2'
-depends 'php', '~> 2.1.1'
+depends 'apache2', '~> 3.3.0'
+depends 'php', '~> 3.1.0'
 
 # database
-depends 'mysql2_chef_gem', '~> 1.0'
+depends 'mysql2_chef_gem', '~> 2.0.1'
 depends 'database', '~> 6.1.1'
-depends 'mysql', '~> 8.2.0'
+depends 'mysql', '~> 8.3.1'
 
-depends 'openssl', '~> 6.0.0'
+depends 'openssl', '~> 7.0.1'
 
 # line
 depends 'line', '~> 0.6.3'
 
 # frontend
-depends 'nodejs', '~> 2.4.4'
+depends 'nodejs', '~> 3.0.0'
 
 # development
-depends 'samba', '~> 0.12.0'
+depends 'samba', '~> 1.0.4'
+
