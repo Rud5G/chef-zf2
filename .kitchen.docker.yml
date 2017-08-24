@@ -7,14 +7,6 @@ driver:
   privileged: true
 
 platforms:
-- name: ubuntu-12.04
-  driver:
-    image: ubuntu-upstart:12.04
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
-
 - name: ubuntu-14.04
   driver:
     image: ubuntu-upstart:14.04
@@ -30,6 +22,7 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
+
 
 - name: debian-7
   driver:
@@ -51,16 +44,8 @@ suites:
   - name: servernode
     provisioner:
       client_rb:
-        environment: testing
+        environment: development
     driver:
       vm_hostname: zf2tutorial.zf2.dev
     run_list:
       - recipe[zf2::servernode]
-    attributes:
-      mysql:
-        server_root_password: 'rootpass'
-      supermarket_omnibus:
-        chef_server_url: https://notarealserver.chef.io
-        chef_oauth2_app_id: randomstring
-        chef_oauth2_secret: randomstring
-        chef_oauth2_verify_ssl: false
