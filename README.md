@@ -2,8 +2,7 @@
 --------------
 
 [![Build Status](https://travis-ci.org/Rud5G/chef-zf2.png?branch=master)](https://travis-ci.org/Rud5G/chef-zf2)
-[![Dependency Status](https://gemnasium.com/Rud5G/chef-zf2.png)](https://gemnasium.com/Rud5G/chef-zf2)
-[![Version Status](http://img.shields.io/badge/beta-0.10.0-blue.svg)](https://github.com/Rud5G/chef-zf2)
+[![Version Status](http://img.shields.io/badge/beta-0.12.12-blue.svg)](https://github.com/Rud5G/chef-zf2)
 
 # Requirements
 
@@ -24,9 +23,24 @@ Set the required project (git), database, virtualhost & users in the databags
     $ vagrant up
     $ vagrant halt
 
+## Use in an other cookbook
+
+Add this cookbook as a dependency to the metadata.rb in your cookbook.
+check the current version in the metadata.rb
+
+    depends 'zf2', '~> 0.12.12'
+
+### Standalone (testing)
+
+Set the required users & config in the databags.
+
+    $ kitchen create
+    $ kitchen converge
+    $ kitchen destroy
+
 ## Known Issues
 
-The samba user setup is not done correct in the first run, to fix:
+If the samba user setup is not done correct in the first run, to fix:
 
     $ vagrant ssh
     $ sudo su

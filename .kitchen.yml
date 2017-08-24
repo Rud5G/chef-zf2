@@ -16,7 +16,7 @@ platforms:
     customize:
       memory: 1024
   driver_config:
-    box: opscode-ubuntu-16.04
+    box: bento/ubuntu-16.04
     box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-16.04_chef-provisionerless.box
 
 suites:

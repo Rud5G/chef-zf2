@@ -68,9 +68,9 @@ unless node.chef_environment == 'production'
     action :create
   end
 
-  bash 'php5enmod_mailcatcher' do
-    code sprintf('%s mailcatcher', node['php']['phpenmod'])
-    only_if { ::File.exists?(node['php']['phpenmod']) }
+  bash 'phpenmod_mailcatcher' do
+    code sprintf('%s mailcatcher', node['php']['enable_mod'])
+    only_if { ::File.exists?(node['php']['enable_mod']) }
   end
 
 end
