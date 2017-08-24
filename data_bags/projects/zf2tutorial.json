@@ -19,10 +19,11 @@
         "config/autoload"
     ],
     "writabledirs": [
-        "data/"
+        "data",
+        "data/cache"
     ],
     "remove_recursive_from_shared": [
-        "data/"
+        "data/cache"
     ],
     "__DO_IN_RELEASEPATH": "__after_here",
     "create_dirs_before_symlink": [
