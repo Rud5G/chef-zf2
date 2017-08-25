@@ -37,5 +37,7 @@ depends 'logrotate', '~> 2.2.0'
 depends 'nodejs', '~> 4.0.0'
 
 # development
-depends 'samba', '~> 1.0.6'
+depends 'samba', '~> 0.13.0'
+# depends 'samba', '~> 1.0.6'
+
 
