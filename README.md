@@ -2,7 +2,7 @@
 --------------
 
 [![Build Status](https://travis-ci.org/Rud5G/chef-zf2.png?branch=master)](https://travis-ci.org/Rud5G/chef-zf2)
-[![Version Status](http://img.shields.io/badge/beta-0.12.12-blue.svg)](https://github.com/Rud5G/chef-zf2)
+[![Version Status](http://img.shields.io/badge/beta-0.12.13-blue.svg)](https://github.com/Rud5G/chef-zf2)
 
 # Requirements
 
@@ -28,7 +28,7 @@ Set the required project (git), database, virtualhost & users in the databags
 Add this cookbook as a dependency to the metadata.rb in your cookbook.
 check the current version in the metadata.rb
 
-    depends 'zf2', '~> 0.12.12'
+    depends 'zf2', '~> 0.12.13'
 
 ### Standalone (testing)
 
