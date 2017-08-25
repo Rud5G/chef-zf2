@@ -30,6 +30,7 @@ depends 'openssl', '~> 7.1.0'
 
 # line
 depends 'line', '~> 1.0.3'
+depends 'logrotate', '~> 2.2.0'
 
 # frontend
 depends 'nodejs', '~> 4.0.0'

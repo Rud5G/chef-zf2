@@ -22,12 +22,6 @@
 
 #default['mysql']['version'] = '5.7'
 
-# Chef::Log.info('debug_value 1 mysql')
-# Chef::Log.info(node.debug_value('mysql', 'server_root_password').inspect)
-
-normal_unless['mysql']['server_root_password'] = random_password
-normal_unless['mysql']['admin_password'] = random_password
-
-# Chef::Log.info(node.debug_value('mysql', 'server_root_password').inspect)
-# Chef::Log.info('= debug_value 2 mysql')
+node.normal_unless['mysql']['server_root_password'] = random_password
+node.normal_unless['mysql']['admin_password'] = random_password
 
