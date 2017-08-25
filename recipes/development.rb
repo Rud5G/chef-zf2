@@ -39,9 +39,6 @@ if node.chef_environment == 'development'
   # phpmyadmin
   package 'phpmyadmin'
 
-  # samba client
-  include_recipe 'samba::default'
-
   # samba prep.
   chef_gem 'chef-rewind' do
     compile_time true
@@ -59,6 +56,9 @@ if node.chef_environment == 'development'
     source 'smb.conf.erb'
     cookbook_name template_cookbook
   end
+
+  # samba client
+  include_recipe 'samba::default'
 
   # mailcatcher
   include_recipe 'zf2::mailcatcher'
