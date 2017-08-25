@@ -7,14 +7,24 @@ driver:
   privileged: true
 
 platforms:
+- name: ubuntu-12.04
+  driver:
+    image: ubuntu-upstart:12.04
+    platform: ubuntu
+    disable_upstart: false
+    run_command: /sbin/init
+    provision_command:
+      - /usr/bin/apt-get update
+      - /usr/bin/apt-get install apt-transport-https net-tools -y
 - name: ubuntu-14.04
   driver:
     image: ubuntu-upstart:14.04
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
-
+    platform: ubuntu
+    disable_upstart: false
+    run_command: /sbin/init
+    provision_command:
+      - /usr/bin/apt-get update
+      - /usr/bin/apt-get install apt-transport-https net-tools -y
 - name: ubuntu-16.04
   driver:
     image: ubuntu:16.04
@@ -22,23 +32,6 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
-
-
-- name: debian-7
-  driver:
-    image: debian:7
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release procps net-tools -y
-
-- name: debian-8
-  driver:
-    image: debian:8
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release net-tools -y
 
 suites:
   - name: servernode

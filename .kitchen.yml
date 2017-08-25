@@ -1,5 +1,3 @@
----
-
 driver:
   name: vagrant
   network:
@@ -7,7 +5,6 @@ driver:
 
 provisioner:
   name: chef_zero
-  # Set the log level (debug, info, warn, error, fatal & auto?)
   log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'info' %>
 
 platforms:
