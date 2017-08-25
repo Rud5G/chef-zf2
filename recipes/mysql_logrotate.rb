@@ -20,5 +20,5 @@
 include_recipe 'logrotate::default'
 
 logrotate_app 'mysql-server' do
-  enable false
+  action :disable
 end

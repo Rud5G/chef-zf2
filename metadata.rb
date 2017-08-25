@@ -1,38 +1,41 @@
 name 'zf2'
+chef_version '>= 12.7'
 maintainer 'Triple-networks'
 maintainer_email 'r.gravestein@triple-networks.com'
-license 'Apache 2.0'
+license 'Apache-2.0'
 description 'Installs/Configures ZF2'
 long_description 'Installs/Configures ZF2'
-issues_url 'https://github.com/Rud5G/chef-zf2/issues' if respond_to?(:issues_url)
-source_url 'https://github.com/Rud5G/chef-zf2' if respond_to?(:source_url)
-version '0.12.11'
+issues_url 'https://github.com/Rud5G/chef-zf2/issues'
+source_url 'https://github.com/Rud5G/chef-zf2'
+version '0.12.12'
 
 # support
 supports 'ubuntu'
 
 # baseserver
-depends 'baseserver', '~> 0.9.3'
+# version is in Berksfile
+depends 'baseserver'
 
-depends 'swap', '~> 2.0.0'
+depends 'swap', '~> 2.1.0'
 
 # webserver
-depends 'apache2', '~> 3.3.0'
-depends 'php', '~> 3.1.0'
+depends 'apache2', '~> 5.0.0'
+depends 'php', '~> 4.5.0'
 
 # database
-depends 'mysql2_chef_gem', '~> 2.0.1'
+depends 'mysql2_chef_gem', '~> 2.1.0'
 depends 'database', '~> 6.1.1'
-depends 'mysql', '~> 8.3.1'
+depends 'mysql', '~> 8.5.1'
 
-depends 'openssl', '~> 7.0.1'
+depends 'openssl', '~> 7.1.0'
 
 # line
-depends 'line', '~> 0.6.3'
+depends 'line', '~> 1.0.3'
+depends 'logrotate', '~> 2.2.0'
 
 # frontend
-depends 'nodejs', '~> 3.0.0'
+depends 'nodejs', '~> 4.0.0'
 
 # development
-depends 'samba', '~> 0.13.0'
+depends 'samba', '~> 1.0.6'
 

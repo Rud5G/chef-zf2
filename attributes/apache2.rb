@@ -21,11 +21,11 @@ default['apache']['contact'] = node['application']['admin']['email']
 
 default['apache']['default_site_enabled'] = false
 
-default['apache']['default_modules'] = %w[
+default['apache']['default_modules'] = %w(
   status alias auth_basic autoindex
   dir env mime negotiation setenvif
-  mod_deflate mod_expires mod_headers mod_rewrite
-]
+  deflate expires headers rewrite
+)
 
 # custom
 default['apache']['canonical_host'] = false
@@ -40,4 +40,6 @@ case node['platform']
     if node['platform_version'].to_f >= 14.04
       force_override['apache']['mpm'] = 'prefork'
     end
+  else
+    # do nothing
 end

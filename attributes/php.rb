@@ -17,12 +17,6 @@
 # limitations under the License.
 #
 
-# default['php']['install_method'] = 'recompile'
-
-# default['php']['version'] = '5.6.25'
-# default['php']['checksum'] = '8055bbe5a736986931c0c6a08b765d6d778271ec7d2d56c50a1ad259ec09f6de'
-
-
 # php
 case node['platform_family']
   when 'debian'
@@ -30,6 +24,11 @@ case node['platform_family']
       when 'ubuntu'
         case node['platform_version'].to_f
           when 13.04..15.10
+
+            default['php']['enable_mod'] = '/usr/sbin/php5enmod'
+            default['php']['disable_mod'] = '/usr/sbin/php5dismod'
+            default['php']['ext_conf_dir'] = '/etc/php5/mods-available'
+
             default['php']['packages'] = %w(
               curl
               libxml2-utils
@@ -48,10 +47,17 @@ case node['platform_family']
               php5-xmlrpc
               php5-xsl
               libapache2-mod-php5
+              php5-zip
+              zip
+              unzip
             )
 
-            default['php']['phpenmod'] = '/usr/sbin/php5enmod'
           when 16.04
+
+            default['php']['enable_mod']       = '/usr/sbin/phpenmod'
+            default['php']['disable_mod']      = '/usr/sbin/phpdismod'
+            default['php']['ext_conf_dir']     = '/etc/php/7.0/mods-available'
+
             default['php']['packages'] = %w(
               curl
               libxml2-utils
@@ -69,9 +75,11 @@ case node['platform_family']
               php-xmlrpc
               php-xsl
               libapache2-mod-php
+              php-zip
+              zip
+              unzip
             )
 
-            default['php']['phpenmod'] = '/usr/sbin/phpenmod'
           else
             # dont change anything.
         end

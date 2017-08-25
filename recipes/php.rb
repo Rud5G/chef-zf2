@@ -7,31 +7,33 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# if ubuntu14.04
-
-# add-apt-repository ppa:ondrej/php5-5.6
 # python-software-properties
+# add-apt-repository ppa:ondrej/php
+
+# apt_repository 'php' do
+#   uri   'ppa:ondrej/php'
+#   distribution node['lsb']['codename']
+#   components   ['main']
+#   keyserver    'keyserver.ubuntu.com'
+#   key          'E5267A6C'
+# end
 
 include_recipe 'php'
 
+socket_ini = 'mysql.default_socket'
+socket_file = '/run/mysql-default/mysqld.sock'
 
-# Chef::Recipe.send(:include, MysqlCookbook::Helpers)
-# Chef::Resource::Line.send(:include, MysqlCookbook::Helpers)
-# Chef::Resource::Mysql.send(:include, MysqlCookbook::Helpers)
-# Chef::Node.send(:include, MysqlCookbook::Helpers)
-# Chef::Resource::Mysql.send(:include, MysqlCookbook::Helpers)
-# thesocketfile = socket_file
-# Chef::Log.info("database helper: #{thesocketfile}")
-
-# todo: replace with MysqlCookbook::Helpers socket_file
-socket_file = "/run/mysql-default/mysqld.sock"
-
-append_if_no_line 'set-php-apache2-mysql.default_socket' do
-  path File.join(File.dirname(node['php']['conf_dir']), 'apache2', 'php.ini')
-  line 'mysql.default_socket = ' + socket_file
+template File.join(node['php']['ext_conf_dir'], 'chefzf2.ini') do
+  source 'php-module.ini.erb'
+  variables modulelines: {
+      socket_ini => socket_file
+  }
+  owner 'root'
+  group 'root'
+  mode '0644'
+  action :create
 end
 
-append_if_no_line 'set-php-cli-mysql.default_socket' do
-  path File.join(File.dirname(node['php']['conf_dir']), 'cli', 'php.ini')
-  line 'mysql.default_socket = ' + socket_file
+execute "#{node['php']['enable_mod']} chefzf2" do
+  only_if { platform?('ubuntu') && ::File.exist?(node['php']['enable_mod']) }
 end
