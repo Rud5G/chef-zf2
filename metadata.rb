@@ -7,7 +7,7 @@ description 'Installs/Configures ZF2'
 long_description 'Installs/Configures ZF2'
 issues_url 'https://github.com/Rud5G/chef-zf2/issues'
 source_url 'https://github.com/Rud5G/chef-zf2'
-version '0.12.12'
+version '0.12.13'
 
 # support
 supports 'ubuntu'
