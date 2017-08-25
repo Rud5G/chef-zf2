@@ -48,10 +48,6 @@ If the samba user setup is not done correct in the first run, to fix:
     $ exit # (2x)
     $ vagrant provision
 
-# Attributes
-
-# Recipes
-
 # Author
 
 Author:: Triple-networks (<r.gravestein@triple-networks.com>)
