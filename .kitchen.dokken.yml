@@ -30,3 +30,14 @@ platforms:
     privileged: true
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
+
+
+suites:
+  - name: servernode
+    provisioner:
+      client_rb:
+        environment: testing
+    driver:
+      vm_hostname: zf2tutorial.zf2.dev
+    run_list:
+      - recipe[zf2::servernode]
