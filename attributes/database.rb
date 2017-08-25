@@ -21,6 +21,6 @@
 
 #default['mysql']['version'] = '5.7'
 
-node.normal_unless['mysql']['server_root_password'] = random_password
-node.normal_unless['mysql']['admin_password'] = random_password
+node.normal_unless['mysql']['server_root_password'] = random_password()
+node.normal_unless['mysql']['admin_password'] = random_password()
 
