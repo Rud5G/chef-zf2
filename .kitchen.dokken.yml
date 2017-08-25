@@ -41,3 +41,12 @@ suites:
       vm_hostname: zf2tutorial.zf2.dev
     run_list:
       - recipe[zf2::servernode]
+    attributes:
+      mysql:
+        server_root_password: 'rootpass'
+      supermarket_omnibus:
+        chef_server_url: https://notarealserver.chef.io
+        chef_oauth2_app_id: randomstring
+        chef_oauth2_secret: randomstring
+        chef_oauth2_verify_ssl: false
+
