@@ -17,7 +17,6 @@
 # limitations under the License.
 #
 
-
 ::Chef::Node.send(:include, OpenSSLCookbook::RandomPassword)
 
 #default['mysql']['version'] = '5.7'
