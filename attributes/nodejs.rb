@@ -18,12 +18,18 @@
 #
 
 
+#node['nodejs']['install_method'] = 'package'
+
 # find the latest stable version: http://nodejs.org/dist/latest/
-default['nodejs']['install_method'] = 'binary'
-default['nodejs']['version'] = '4.5.0'
-default['nodejs']['binary']['checksum'] = '5678ad94ee35e40fc3a2c545e136a0dc946ac4c039fca5898e1ea51ecf9e7c39'
+#default['nodejs']['install_method'] = 'binary'
+#default['nodejs']['version'] = '4.5.0'
+#default['nodejs']['binary']['checksum'] = '5678ad94ee35e40fc3a2c545e136a0dc946ac4c039fca5898e1ea51ecf9e7c39'
 
 # default['nodejs']['version'] = '6.2.0'
 
 # default['nodejs']['version'] = '5.9.0'
-# default['nodejs']['binary']['checksum'] = '99c4136cf61761fac5ac57f80544140a3793b63e00a65d4a0e528c9db328bf40'
+
+default['nodejs']['install_method'] = 'binary'
+default['nodejs']['version'] = '8.9.1'
+default['nodejs']['binary']['checksum']['linux_x64'] = '0e49da19cdf4c89b52656e858346775af21f1953c308efbc803b665d6069c15c'
+
