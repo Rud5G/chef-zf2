@@ -19,11 +19,3 @@
 
 include_recipe 'nodejs::default'
 
-#include_recipe 'nodejs::nodejs'
-#include_recipe 'nodejs::npm'
-
-nodejs_npm 'bower' do
-  options ['--global']
-end
-
-
