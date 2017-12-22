@@ -8,7 +8,6 @@
 #
 
 include_recipe 'apache2::default'
-# include_recipe 'apache2::mod_rewrite'
 
 begin
   data_bag('virtualhosts').each do |virtualhost|
@@ -24,23 +23,23 @@ begin
     end
 
     # set default template
-    hosttemplate = hostdata['template']
-    hosttemplate ||= 'web_app.conf.erb'
-    hostcookbook = hostdata['cookbook']
-    hostcookbook ||= cookbook_name.to_s
-
-    #webappname = '000-'+hostdata['id']
+    hostdata['template'] ||= 'web_app.conf.erb'
+    # set default cookbook
+    hostdata['cookbook'] ||= cookbook_name.to_s
+    # set default server port
+    hostdata['server_port'] ||= 80
 
     web_app hostdata['server_name'] do
       enable hostdata['enable']
       server_name hostdata['server_name']
       server_aliases hostdata['server_aliases']
-      template hosttemplate
-      cookbook hostcookbook
+      template hostdata['template']
+      cookbook hostdata['cookbook']
       docroot hostdata['docroot']
       allow_override hostdata['allow_override']
       directory_options hostdata['directory_options']
       directory_index hostdata['directory_index']
+      server_port hostdata['server_port']
     end
 
   end

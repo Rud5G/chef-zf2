@@ -3,54 +3,58 @@
     "development": {
         "enable": true,
         "create_docroot": false,
-        "server_name": "zf2tutorial.zf2.dev",
+        "server_name": "zf2tutorial.zf2.ldev",
         "server_aliases": [
-            "zf2tutorial.dev"
+            "zf2tutorial.ldev"
         ],
         "docroot": "/srv/www/zf2tutorial/current/public",
         "directory_index": [ "index.php", "index.html" ],
         "directory_options": [ "Indexes", "FollowSymLinks" ],
         "template": "web_app.conf.erb",
-        "allow_override": "all"
+        "allow_override": "all",
+        "server_port": "80"
     },
     "testing": {
         "enable": true,
         "create_docroot": false,
-        "server_name": "zf2tutorial.zf2.dev",
+        "server_name": "zf2tutorial.zf2.ldev",
         "server_aliases": [
-            "zf2tutorial.dev"
+            "zf2tutorial.ldev"
         ],
         "docroot": "/srv/www/zf2tutorial/current/public",
         "directory_index": [ "index.php", "index.html" ],
         "directory_options": [ "Indexes", "FollowSymLinks" ],
         "template": "web_app.conf.erb",
-        "allow_override": "all"
+        "allow_override": "all",
+        "server_port": "80"
     },
     "acceptance": {
         "enable": true,
         "create_docroot": false,
-        "server_name": "zf2tutorial.zf2.dev",
+        "server_name": "zf2tutorial.zf2.ldev",
         "server_aliases": [
-            "zf2tutorial.dev"
+            "zf2tutorial.ldev"
         ],
         "docroot": "/srv/www/zf2tutorial/current/public",
         "directory_index": [ "index.php", "index.html" ],
         "directory_options": [ "Indexes", "FollowSymLinks" ],
         "template": "web_app.conf.erb",
-        "allow_override": "all"
+        "allow_override": "all",
+        "server_port": "80"
     },
     "production": {
         "enable": true,
         "create_docroot": false,
-        "server_name": "zf2tutorial.zf2.dev",
+        "server_name": "zf2tutorial.zf2.ldev",
         "server_aliases": [
-            "zf2tutorial.dev"
+            "zf2tutorial.ldev"
         ],
         "docroot": "/srv/www/zf2tutorial/current/public",
         "directory_index": [ "index.php", "index.html" ],
         "directory_options": [ "Indexes", "FollowSymLinks" ],
         "template": "web_app.conf.erb",
-        "allow_override": "all"
+        "allow_override": "all",
+        "server_port": "80"
     },
     "comment": "zf2tutorial Virtualhost"
 }

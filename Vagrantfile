@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 CHEF_VM_NAME = 'zf2tutorial-zf2'
-CHEF_VM_HOSTNAME = 'zf2tutorial.zf2.dev'
+CHEF_VM_HOSTNAME = 'zf2tutorial.zf2.ldev'
 CHEF_VM_ENVIRONMENT = 'development'
 
 VM_IP_ADDRESS = '10.9.8.8'
