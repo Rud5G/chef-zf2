@@ -23,12 +23,6 @@ begin
     end
 
     # set default template
-    # hosttemplate = hostdata['template']
-    # hosttemplate ||= 'web_app.conf.erb'
-    # hostcookbook = hostdata['cookbook']
-    # hostcookbook ||= cookbook_name.to_s
-
-    # set default template
     hostdata['template'] ||= 'web_app.conf.erb'
     # set default cookbook
     hostdata['cookbook'] ||= cookbook_name.to_s
