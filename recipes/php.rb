@@ -7,18 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# python-software-properties
-# add-apt-repository ppa:ondrej/php
-
-# apt_repository 'php' do
-#   uri   'ppa:ondrej/php'
-#   distribution node['lsb']['codename']
-#   components   ['main']
-#   keyserver    'keyserver.ubuntu.com'
-#   key          'E5267A6C'
-# end
-
-include_recipe 'php'
+include_recipe 'php::default'
 
 socket_ini = 'mysql.default_socket'
 socket_file = '/run/mysql-default/mysqld.sock'
