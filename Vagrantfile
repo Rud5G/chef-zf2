@@ -4,6 +4,7 @@
 CHEF_VM_NAME = 'zf2tutorial-zf2'
 CHEF_VM_HOSTNAME = 'zf2tutorial.zf2.ldev'
 CHEF_VM_ENVIRONMENT = 'development'
+CHEF_CLIENT_VERSION = '13.12.3'
 
 VM_IP_ADDRESS = '10.9.8.8'
 VAGRANTFILE_API_VERSION = '2'
@@ -30,7 +31,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Detects vagrant omnibus plugin
   if Vagrant.has_plugin?('vagrant-omnibus')
     puts 'INFO:  Vagrant-omnibus plugin detected.'
-    config.omnibus.chef_version = :latest
+    config.omnibus.chef_version = CHEF_CLIENT_VERSION
+    #config.omnibus.chef_version = :latest
   else
     puts "FATAL: Vagrant-omnibus plugin not detected. Please install the plugin with\n       'vagrant plugin install vagrant-omnibus' from any other directory\n       before continuing."
     exit

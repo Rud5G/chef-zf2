@@ -5,7 +5,7 @@ driver:
 
 provisioner:
   name: chef_zero
-  require_chef_omnibus: 12.21.26
+  require_chef_omnibus: 13.12.3
   log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'info' %>
   # deprecations_as_errors: true
 
