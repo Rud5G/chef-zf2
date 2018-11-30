@@ -1,5 +1,4 @@
 name 'zf2'
-chef_version '>= 12.7'
 maintainer 'Triple-networks'
 maintainer_email 'r.gravestein@triple-networks.com'
 license 'Apache-2.0'
@@ -7,6 +6,7 @@ description 'Installs/Configures ZF2'
 long_description 'Installs/Configures ZF2'
 issues_url 'https://github.com/Rud5G/chef-zf2/issues'
 source_url 'https://github.com/Rud5G/chef-zf2'
+chef_version '>= 12.7' if respond_to?(:chef_version)
 version '0.13.0'
 
 # support
