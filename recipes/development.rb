@@ -40,6 +40,30 @@ if node.chef_environment == 'development'
   package 'phpmyadmin'
 
 
+  samba_server 'samba server' do
+    workgroup node['samba']['workgroup'] # The SMB workgroup to use, default "SAMBA".
+    interfaces node['samba']['interfaces'] # Interfaces to listen on, default "lo 127.0.0.1".
+    hosts_allow node['samba']['hosts_allow'] # Allowed hosts/networks, default "127.0.0.0/8".
+    bind_interfaces_only node['samba']['bind_interfaces_only'] # Limit interfaces to serve SMB, default "no"
+    load_printers node['samba']['load_printers'] # Whether to load printers, default "no".
+    passdb_backend node['samba']['passdb_backend'] # Which password backend to use, default "tdbsam".
+    dns_proxy node['samba']['dns_proxy'] # Whether to search NetBIOS names through DNS, default "no".
+    security node['samba']['security'] # Samba security mode, default "user".
+    map_to_guest node['samba']['map_to_guest'] # What Samba should do with logins that don't match Unix users, default "Bad User".
+    socket_options node['samba']['socket_options'] # Socket options, default "`TCP_NODELAY`"
+    # config_file # Location of Samba configuration, see resource for platform default
+    # log_dir # Location of Samba logs, see resource for platform default
+    # realm # Kerberos realm to use, default: ''
+    # password_server # Use a specific remote server for auth, default: ''
+    # encrypt_passwords # Whether to negotiate encrypted passwords, default: yes
+    # kerberos_method # How kerberos tickets are verified, default: secrets only
+    # log_level # Sets the logging level from 0-10, default: 0
+    # winbind_separator # Define the character used when listing a username of the form of DOMAIN \user, default \
+    # idmap_config # Define the mapping between SIDS and Unix users and groups, default: none
+    # max_log_size # Maximum log file size, default: 5000, (5MB)
+    # options # list of additional options, e.g. 'unix charset' => 'UTF8'.
+  end
+
   shares = data_bag_item(node['samba']['shares_data_bag'], 'shares')
   shares['shares'].each do |k, v|
     samba_share k do
@@ -67,30 +91,6 @@ if node.chef_environment == 'development'
         action [:create, :enable]
       end
     end
-  end
-
-  samba_server 'samba server' do
-    workgroup node['samba']['workgroup'] # The SMB workgroup to use, default "SAMBA".
-    interfaces node['samba']['interfaces'] # Interfaces to listen on, default "lo 127.0.0.1".
-    hosts_allow node['samba']['hosts_allow'] # Allowed hosts/networks, default "127.0.0.0/8".
-    bind_interfaces_only node['samba']['bind_interfaces_only'] # Limit interfaces to serve SMB, default "no"
-    load_printers node['samba']['load_printers'] # Whether to load printers, default "no".
-    passdb_backend node['samba']['passdb_backend'] # Which password backend to use, default "tdbsam".
-    dns_proxy node['samba']['dns_proxy'] # Whether to search NetBIOS names through DNS, default "no".
-    security node['samba']['security'] # Samba security mode, default "user".
-    map_to_guest node['samba']['map_to_guest'] # What Samba should do with logins that don't match Unix users, default "Bad User".
-    socket_options node['samba']['socket_options'] # Socket options, default "`TCP_NODELAY`"
-    # config_file # Location of Samba configuration, see resource for platform default
-    # log_dir # Location of Samba logs, see resource for platform default
-    # realm # Kerberos realm to use, default: ''
-    # password_server # Use a specific remote server for auth, default: ''
-    # encrypt_passwords # Whether to negotiate encrypted passwords, default: yes
-    # kerberos_method # How kerberos tickets are verified, default: secrets only
-    # log_level # Sets the logging level from 0-10, default: 0
-    # winbind_separator # Define the character used when listing a username of the form of DOMAIN \user, default \
-    # idmap_config # Define the mapping between SIDS and Unix users and groups, default: none
-    # max_log_size # Maximum log file size, default: 5000, (5MB)
-    # options # list of additional options, e.g. 'unix charset' => 'UTF8'.
   end
 
   # samba client
