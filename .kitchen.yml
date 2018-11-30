@@ -31,6 +31,7 @@ suites:
       vm_hostname: zf2tutorial.zf2.dev
     run_list:
       - recipe[zf2::servernode]
+      - recipe[zf2::development]
     attributes:
       mysql:
         server_root_password: 'rootpass'
