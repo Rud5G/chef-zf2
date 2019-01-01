@@ -25,7 +25,7 @@ depends 'php', '~> 6.1.1'
 # database
 depends 'mysql2_chef_gem', '~> 2.1.0'
 depends 'database', '~> 6.1.1'
-depends 'mysql', '~> 8.5.1'
+depends 'mysql', '~> 8.5.2'
 
 depends 'openssl', '~> 8.5.5'
 

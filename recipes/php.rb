@@ -10,7 +10,7 @@
 include_recipe 'php::default'
 
 socket_ini = 'mysql.default_socket'
-socket_file = '/run/mysql-default/mysqld.sock'
+socket_file = '/run/mysql/mysqld.sock'
 
 template File.join(node['php']['ext_conf_dir'], 'chefzf2.ini') do
   source 'php-module.ini.erb'

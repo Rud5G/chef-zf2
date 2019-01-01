@@ -17,10 +17,10 @@
 # limitations under the License.
 #
 
-::Chef::Node.send(:include, OpenSSLCookbook::RandomPassword)
+# default['mysql']['version'] = '5.7'
+default['mysql']['bind_address'] = '127.0.0.1'
 
-#default['mysql']['version'] = '5.7'
+::Chef::Node.send(:include, OpenSSLCookbook::RandomPassword)
 
 node.normal_unless['mysql']['server_root_password'] = random_password()
 node.normal_unless['mysql']['admin_password'] = random_password()
-

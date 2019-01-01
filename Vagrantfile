@@ -81,7 +81,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #  config.vm.box = 'opscode-ubuntu-16.04'
 #  config.vm.box_url = 'https://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-16.04_chef-provisionerless.box'
 
-  config.vm.box = 'bento/ubuntu-16.04'
+#  config.vm.box = 'bento/ubuntu-16.04'
+  config.vm.box = 'bento/ubuntu-18.04'
 
   config.vm.network :private_network, :ip => VM_IP_ADDRESS
 

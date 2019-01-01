@@ -52,11 +52,11 @@ case node['platform_family']
               unzip
             )
 
-          when 16.04
+          when 16.04..18.10
 
             default['php']['enable_mod']       = '/usr/sbin/phpenmod'
             default['php']['disable_mod']      = '/usr/sbin/phpdismod'
-            default['php']['ext_conf_dir']     = '/etc/php/7.0/mods-available'
+            default['php']['ext_conf_dir']     = '/etc/php/7.2/mods-available'
 
             default['php']['packages'] = %w(
               curl

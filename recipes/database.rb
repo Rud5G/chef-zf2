@@ -22,12 +22,14 @@ package 'libmysqlclient-dev' do
   action :install
 end
 
-# provides mysql gem resource
-mysql2_chef_gem 'default' do
-  action :install
-end
+gem_package 'mysql2'
 
-if node['platform'] == 'ubuntu' && node['platform_version'] == '16.04'
+# provides mysql gem resource
+# mysql2_chef_gem 'default' do
+#   action :install
+# end
+
+if node['platform'] == 'ubuntu' && node['platform_version'] == '18.04'
   servicemanagername = 'systemd'
 else
   servicemanagername = 'auto'
@@ -36,7 +38,11 @@ end
 # Configure the MySQL service.
 mysql_service 'default' do
   # version node['mysql']['version']
-  bind_address '0.0.0.0'
+  # determines the listen IP address for the mysqld service.
+  # When omitted, it will be determined by MySQL.
+  # If the address is "regular" IPv4/IPv6address (e.g 127.0.0.1 or ::1), the server accepts TCP/IP connections only for that particular address.
+  # If the address is "0.0.0.0" (IPv4) or "::" (IPv6), the server accepts TCP/IP connections on all IPv4 or IPv6 interfaces.
+  bind_address node['mysql']['bind_address']
   port '3306'
   initial_root_password node['mysql']['server_root_password']
   # provider MysqlCookbook::MysqlServiceManagerSystemd
