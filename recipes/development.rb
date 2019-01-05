@@ -71,9 +71,10 @@ if node.chef_environment == 'development'
       path v['path'] # String for the path of directory to be served. Required.
       guest_ok v['guest ok'] # yes, no
       valid_users v['valid users'].join(' ') # space separated users or group, default ''
-      write_list v['valid users'] # An array of Unix users
+      # write_list v['valid users'] # An array of Unix users
       create_mask v['create mask'] # e.g. 0644
       directory_mask v['directory mask'] # e.g. 0700
+      options v['options']
     end
   end
 

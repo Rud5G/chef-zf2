@@ -11,7 +11,10 @@
             "browseable": "yes",
             "create mask": "0777",
             "directory mask": "0777",
-            "force user": "projectuser"
+            "force group": "projectuser",
+            "options": {
+                "force user": "projectuser"
+            }
         }
     }
 }
